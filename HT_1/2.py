@@ -1,0 +1,13 @@
+'''2. Write a script to print out a set containing all the colours from color_list_1
+which are not present in color_list_2. '''
+
+color_list_1 = set(["White", "Black", "Red"])
+color_list_2 = set(["Red", "Green"])
+
+color_list_3 = [] #initiate empty list
+
+for color in color_list_1:  #select each color from the list 1
+    if color not in color_list_2: #check selected color in the list 2
+        color_list_3.append(color)  #add color that doesn't present in the list 2
+
+print(color_list_3) #print new list with needed colors
