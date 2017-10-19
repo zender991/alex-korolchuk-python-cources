@@ -3,11 +3,11 @@ from user and generate a list and a tuple with those numbers.'''
 
 input_data = input('Enter numbers divided by comma separator - ')
 
-input_data = input_data.replace(',','')
+input_data = input_data.replace(',','') #remove commas from the string
 
-generated_list = input_data.split()
-generated_tuple = tuple(generated_list)
+generated_list = input_data.split() #convert string to list
+generated_tuple = tuple(generated_list) #convert list to tuple
 
 print('Output :')
-print('List : ' + str(generated_list))
-print('Tuple : ' + str(generated_tuple))
+print('List : ' + str(generated_list))  #print list
+print('Tuple : ' + str(generated_tuple)) #print tuple
