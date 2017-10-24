@@ -139,3 +139,19 @@ def make_magic_with_string(entered_string):
 
 
 #make_magic_with_string(test_string)
+
+'''6. придумайте 3 різних ф-ції(немає різниці які)'''
+
+#6.1. check if entered value is present in a list
+
+list = [5, 3, 'ololo', 1, 5.7, 'kokoko', 2, 12]
+#value = int(input('Enter value - '))
+
+def check_value_present(value, list):
+    if value in list:       #check value present in a list
+        return print('Value ' + str(value) + ' is present in a list') #print that value is present
+    else:   #in another case - it can be only value is absent - print value is absent
+        return print('Value ' + str(value) + ' is absent in a list')
+
+#check_value_present(value, list)
+
