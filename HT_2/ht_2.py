@@ -155,3 +155,17 @@ def check_value_present(value, list):
 
 #check_value_present(value, list)
 
+#6.2. remove empty tuples from a list
+
+test_list = [(), (), ('',), ('a', 'b'), (), ('a', 'b', 'c'), ('d')]
+new_list = []
+
+def remove_empty_tuples(tuple):
+    for i in tuple:  # select each tuple in a list
+        if len(i) > 0:
+            new_list.append(i)  # if tuple isn't empty - add to new list
+    return print('List without empty tuples ' + str(new_list))
+
+remove_empty_tuples(test_list)
+
+
