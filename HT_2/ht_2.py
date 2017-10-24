@@ -186,3 +186,24 @@ def find_max_and_min(test_dict):
     return print('Max value : ' + str(max_value) + ' - Min Value : ' + str(min_value))
 
 #find_max_and_min(input_dictionary)
+
+'''калькулятор повинна бути 1 ф-ція яка б приймала 3 аргументи - один з яких операція яку зробити! '''
+
+def calculate(first_value, second_value, operation):
+    if operation == 'plus':                                         #check operation name. find condition with entered operation
+        return print('Sum - ' + str(first_value + second_value))    #and make calculation
+    elif operation == 'substract':
+        return print('Substraction - ' + str(first_value - second_value))
+    elif operation == 'divide':
+        return print('Dividing - ' + str(first_value / second_value))
+    elif operation == 'multiply':
+        return print('Multiplying - ' + str(first_value * second_value))
+    elif operation == 'percent':
+        return print('Percent - ' + str(first_value * 100 / second_value))
+    else:
+        return print('You entered invalid data')    #error if entered wrong operators
+
+#first_value = int(input('Enter first digit - '))
+#second_value = int(input('Enter second digit - '))
+#operation = input('Enter operation (plus, subscract, divide, multiply, percent) - ')
+#calculate(first_value, second_value, operation)
