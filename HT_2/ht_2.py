@@ -43,7 +43,7 @@ def season3(number):
 результат. Таким чином ми будемо викликати 1 функцію, а вона в своєму тілі ще 3'''
 
 #a = int(input('Enter first value - '))
-#b = int(input('Enter second value : '))
+#b = int(input('Enter second value - '))
 
 def plus_digits(a, b):   #fubc makes addition with digits
     return a + b
@@ -60,7 +60,29 @@ def sum_of_all_funcs(a, b):  #find sum of addition, substraction and multiplying
 #sum_of_all_funcs(a, b)
 
 
+'''
+4. Створіть 2 змінні x та y з довільними значеннями;
+Створіть просту умовну конструкцію(звісно вона повинна бути в тілі ф-ції), під час виконання якої буде
+перевірятися рівність змінних x та y.
+Удоскональте конструкцію та додайте відповідні умови, які б при нерівності змінних х та у відповідь повертали різницю чисел.
+Повинні опрацювати такі умови:
+x > y; відповідь - х більше ніж у на z
+x < y; відповідь - у більше ніж х на z
+x==y. відповідь - х дорівнює z
+'''
 
+#x = int(input('Enter x value - '))
+#y = int(input('Enter y value - '))
+
+def find_difference(x, y):
+    if x > y:   #check if x bigger then y
+        return print('x bigger then y to ' + str(x - y)) # x minus y if yes
+    elif x < y: #check if y bigger then x
+        return print('y bigger then x to ' + str(y - x))    # y minus x if yes
+    else:
+        return print('x and y are equal') #we haven't another situation else. only x equal y
+
+#find_difference(x, y)
 
 
 '''5.маємо рядок
