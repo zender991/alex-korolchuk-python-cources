@@ -1,13 +1,13 @@
 ''' Task 1. Написати функцію season, приймаючу 1 аргумент — номер місяця (від 1 до 12),
 яка буде повертати пору року, якій цей місяць належить (зима, весна, літо або осінь).'''
 
-#entered_value = int(input('Enter month number - '))   #input value
+entered_value = int(input('Enter month number - '))   #input value
 
 def season1(number):
     return print('First function : ' + str({1:'winter', 2:'winter', 3:'spring', 4:'spring', 5:'spring', 6:'summer', 7:'summer', 8:'summer',
             9:'autumn', 10:'autumn', 11:'autumn', 12:'winter'}.get(number, 'Invalid number')))  #find month by key. key number equal month number
 
-#season1(entered_value)
+season1(entered_value)
 
 def season2(number):
     if number >= 3 and number <= 5:     #check ranges for seasons
@@ -21,43 +21,58 @@ def season2(number):
     else:
         return 'Invalid number'   # if user entered more then 12 or less then 1 digit
 
-#print('Second function : ' + str(season2(entered_value)))
+print('Second function : ' + str(season2(entered_value)))
 
 def season3(number):
-    seasones_list = ['winter', 'spring', 'spring', 'spring', 'summer', 'summer', 'summer',
-                     'autumn', 'autumn', 'autumn', 'winter', 'winter']  #initiate list of monthes
+    seasones_list = ['winter', 'winter', 'spring', 'spring', 'spring', 'summer', 'summer', 'summer',
+                     'autumn', 'autumn', 'autumn', 'winter']  #initiate list of monthes
 
     if number >= 1 and number <= 12:
         return print('Third function : ' + str(seasones_list[number - 1]))  #find month by index in a list
     else:
         return  print('Third function : Invalid number')  # if user entered more then 12 or less then 1 digit
 
-#season3(entered_value)
+season3(entered_value)
+
 '''2. Написати функцію, яка буде приймати декілька значень, одне з яких значення за замовченням(повинна бути
 перевірка на наявність),і у випадку якщо воно є додати його до іншого агрументу, якщо немає - придумайте
 логіку що робити программі.'''
 
 
+def fun_with_defaul_value(last_name, first_name=None):  #found post https://habrahabr.ru/post/86706/
+    if first_name is None:  #author recommends to use values that can't be changed for default values
+        first_name = 'John'.upper()     #if first_name is not set, put value into variable and make string in uppercase
+        return print('You didn\'t provide your first name. I\'ll call you ' + first_name + ' ' + last_name )
+    else:
+        return print(first_name + ' ' + last_name + ' - Darth Vader is your father')
+
+#first_name = input('Enter your first name - ')
+last_name = input('Enter your second name - ')
+
+
+#fun_with_defaul_value(last_name, first_name)   #fun with both entered arguments. Remove comment in line 49
+fun_with_defaul_value(last_name) #fun with one argument. second set by default. Comment line 49
+
 '''3. Створіть 3 різних функції(на ваш вибір), кожна з цих функцій повинна повертати якийсь результат. Також
 створіть четверу ф-цію, яка в тілі викликає 3 попередніб обробляє повернутий ними результат та також повертає
 результат. Таким чином ми будемо викликати 1 функцію, а вона в своєму тілі ще 3'''
 
-#a = int(input('Enter first value - '))
-#b = int(input('Enter second value - '))
+a = int(input('Enter first value - '))
+b = int(input('Enter second value - '))
 
 def plus_digits(a, b):   #fubc makes addition with digits
     return a + b
 
-def minus_digits(a, b):    #func makes subsctraction with digits
+def minus_digits(a, b):    # func makes subsctraction with digits
     return a - b
 
-def multiply_digits(a, b):  #func makes multiplying with digits
+def multiply_digits(a, b):  # func makes multiplying with digits
     return a * b
 
-def sum_of_all_funcs(a, b):  #find sum of addition, substraction and multiplying two numbers
+def sum_of_all_funcs(a, b):  # find sum of addition, substraction and multiplying two numbers
     return print('Sum of all funcs values is : ' + str(plus_digits(a, b) + minus_digits(a, b) + multiply_digits(a, b)))
 
-#sum_of_all_funcs(a, b)
+sum_of_all_funcs(a, b)
 
 
 '''
@@ -71,8 +86,8 @@ x < y; відповідь - у більше ніж х на z
 x==y. відповідь - х дорівнює z
 '''
 
-#x = int(input('Enter x value - '))
-#y = int(input('Enter y value - '))
+x = int(input('Enter x value - '))
+y = int(input('Enter y value - '))
 
 def find_difference(x, y):
     if x > y:   #check if x bigger then y
@@ -82,7 +97,7 @@ def find_difference(x, y):
     else:
         return print('x and y are equal') #we haven't another situation else. only x equal y
 
-#find_difference(x, y)
+find_difference(x, y)
 
 
 '''5.маємо рядок
@@ -138,16 +153,16 @@ def make_magic_with_string(entered_string):
         return print('Incorrect input data')
 
 
-#make_magic_with_string(test_string)
+make_magic_with_string(test_string)
 
 '''6. придумайте 3 різних ф-ції(немає різниці які)'''
 
-#I took tasks from HT1 and made them like functions
+# I took tasks from HT1 and made them like functions
 
-#6.1. check if entered value is present in a list
+# 6.1. check if entered value is present in a list
 
 list = [5, 3, 'ololo', 1, 5.7, 'kokoko', 2, 12]
-#value = int(input('Enter value - '))
+value = int(input('Enter value - '))
 
 def check_value_present(value, list):
     if value in list:       #check value present in a list
@@ -155,7 +170,7 @@ def check_value_present(value, list):
     else:   #in another case - it can be only value is absent - print value is absent
         return print('Value ' + str(value) + ' is absent in a list')
 
-#check_value_present(value, list)
+check_value_present(value, list)
 
 #6.2. remove empty tuples from a list
 
@@ -168,7 +183,7 @@ def remove_empty_tuples(tuple):
             new_list.append(i)  # if tuple isn't empty - add to new list
     return print('List without empty tuples ' + str(new_list))
 
-# remove_empty_tuples(test_list1)
+remove_empty_tuples(test_list1)
 
 
 # 6.3. get the maximum and minimum value in a dictionary.
@@ -185,7 +200,7 @@ def find_max_and_min(test_dict):
             min_value = value # if current value less then current min value, set current value as min value
     return print('Max value : ' + str(max_value) + ' - Min Value : ' + str(min_value))
 
-#find_max_and_min(input_dictionary)
+find_max_and_min(input_dictionary)
 
 '''калькулятор повинна бути 1 ф-ція яка б приймала 3 аргументи - один з яких операція яку зробити! '''
 
@@ -203,7 +218,7 @@ def calculate(first_value, second_value, operation):
     else:
         return print('You entered invalid data')    #error if entered wrong operators
 
-#first_value = int(input('Enter first digit - '))
-#second_value = int(input('Enter second digit - '))
-#operation = input('Enter operation (plus, subscract, divide, multiply, percent) - ')
-#calculate(first_value, second_value, operation)
+first_value = int(input('Enter first digit - '))
+second_value = int(input('Enter second digit - '))
+operation = input('Enter operation (plus, subscract, divide, multiply, percent) - ')
+calculate(first_value, second_value, operation)
