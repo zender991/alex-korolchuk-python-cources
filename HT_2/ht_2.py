@@ -33,6 +33,34 @@ def season3(number):
         return  print('Third function : Invalid number')  # if user entered more then 12 or less then 1 digit
 
 #season3(entered_value)
+'''2. Написати функцію, яка буде приймати декілька значень, одне з яких значення за замовченням(повинна бути
+перевірка на наявність),і у випадку якщо воно є додати його до іншого агрументу, якщо немає - придумайте
+логіку що робити программі.'''
+
+
+'''3. Створіть 3 різних функції(на ваш вибір), кожна з цих функцій повинна повертати якийсь результат. Також
+створіть четверу ф-цію, яка в тілі викликає 3 попередніб обробляє повернутий ними результат та також повертає
+результат. Таким чином ми будемо викликати 1 функцію, а вона в своєму тілі ще 3'''
+
+#a = int(input('Enter first value - '))
+#b = int(input('Enter second value : '))
+
+def plus_digits(a, b):   #fubc makes addition with digits
+    return a + b
+
+def minus_digits(a, b):    #func makes subsctraction with digits
+    return a - b
+
+def multiply_digits(a, b):  #func makes multiplying with digits
+    return a * b
+
+def sum_of_all_funcs(a, b):  #find sum of addition, substraction and multiplying two numbers
+    return print('Sum of all funcs values is : ' + str(plus_digits(a, b) + minus_digits(a, b) + multiply_digits(a, b)))
+
+#sum_of_all_funcs(a, b)
+
+
+
 
 
 '''5.маємо рядок
@@ -88,4 +116,4 @@ def make_magic_with_string(entered_string):
         return print('Incorrect input data')
 
 
-make_magic_with_string(test_string)
+#make_magic_with_string(test_string)
