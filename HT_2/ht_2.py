@@ -142,6 +142,8 @@ def make_magic_with_string(entered_string):
 
 '''6. придумайте 3 різних ф-ції(немає різниці які)'''
 
+#I took tasks from HT1 and made them like functions
+
 #6.1. check if entered value is present in a list
 
 list = [5, 3, 'ololo', 1, 5.7, 'kokoko', 2, 12]
@@ -157,7 +159,7 @@ def check_value_present(value, list):
 
 #6.2. remove empty tuples from a list
 
-test_list = [(), (), ('',), ('a', 'b'), (), ('a', 'b', 'c'), ('d')]
+test_list1 = [(), (), ('',), ('a', 'b'), (), ('a', 'b', 'c'), ('d')]
 new_list = []
 
 def remove_empty_tuples(tuple):
@@ -166,6 +168,21 @@ def remove_empty_tuples(tuple):
             new_list.append(i)  # if tuple isn't empty - add to new list
     return print('List without empty tuples ' + str(new_list))
 
-remove_empty_tuples(test_list)
+# remove_empty_tuples(test_list1)
 
 
+# 6.3. get the maximum and minimum value in a dictionary.
+
+input_dictionary = {1:10, 2:20, 3:10, 7:70, 8:10}
+
+def find_max_and_min(test_dict):
+    min_value = 10000000  # set large value for comparing
+    max_value = 0
+    for key,value in input_dictionary.items():  #select each value in a dictionary
+        if value > max_value:  # if current value bigger then current max value, set current value as max value
+            max_value = value
+        elif min_value > value:
+            min_value = value # if current value less then current min value, set current value as min value
+    return print('Max value : ' + str(max_value) + ' - Min Value : ' + str(min_value))
+
+#find_max_and_min(input_dictionary)
