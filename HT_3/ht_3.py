@@ -2,7 +2,6 @@
 Argument for this function - function for sorting and list for sorting
 '''
 
-
 from random import randint, uniform
 import time
 
@@ -87,7 +86,6 @@ def print_result (test_list, sort_type ):
 
     return print(str(sort_type) + ' : time = ' + str("{0:.4f}".format(sorting_time)) +  # display sort algorithm time, used .format for 4 digits after point,
           ', The list is sorted correctly - ' + str(compare_lists(sorted_list, native_sorted_list)))  # return True if native and custom sorting results are equal
-
 
 '''
 For run:

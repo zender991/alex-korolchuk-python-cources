@@ -76,8 +76,6 @@ def compare_lists(first_list, second_list):
         return False    # return False if lists aren't equal
 
 
-
-
 def print_result(test_list, sort_type ):
 
     native_sorted_list = native_sort(test_list)  # sort list by native sort
@@ -92,7 +90,6 @@ def print_result(test_list, sort_type ):
     - use func :  print_result(test_list, sort_type )
     - test_list : test_list_int - list of integers, test_list_float - list of floats
     - sort_type : bubble_sort, insertion_sort, selection_sort
-
 '''
 
 print_result(test_list_int, bubble_sort)
