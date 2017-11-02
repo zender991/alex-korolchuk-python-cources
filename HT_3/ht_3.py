@@ -3,7 +3,7 @@ import time
 
 #a = [34, 23, 56, 4]
 test_list = []
-for i in range(10):
+for i in range(5000):
     test_list.append(randint(0, 99))
 
 
@@ -26,10 +26,7 @@ def calculate_time(sort_title):
         bubble_sort(test_list)
         time_diff = time.time() - start_time
 
-    elif sort_title == 'insertion':
-        start_time = time.time()
-        insertion_sort(test_list)
-        time_diff = time.time() - start_time
+
 
     return time_diff
 
@@ -51,28 +48,16 @@ def bubble_sort(list_for_bubble):
     return list_for_bubble
 
 
-def insertion_sort(list):
-    for i in range(len(list) - 1):
-
-        curr_value = list[i]
-        curr_index = i
-
-        while curr_index > 0 and list[curr_index - 1] > curr_value:
-            list[curr_index] = list[curr_index - 1]
-            curr_index = curr_index - 1
-
-    list[curr_index] = curr_value
-
-    return list
-
 
 #print("{0:.4f}".format(bubble_sort(a)))
 #bubble_sort(test_list)
 #native_sort(a)
 
 
+#print(bubble_sort(test_list))
 
-#print('bubble sort: time = ' + str("{0:.4f}".format(calculate_time('bubble'))))
+
+print('bubble sort: time = ' + str("{0:.4f}".format(calculate_time('bubble'))))
 #print(list)
-print('The list is sorted correctly - ' + str(compare_lists(list_for_bubble), native_sort(test_list)))
+#print('The list is sorted correctly - ' + str(compare_lists(list_for_bubble), native_sort(test_list)))
 #print('The list is sorted correctly - ' + str(compare_lists(insertion_sort(test_list), native_sort(test_list))))
