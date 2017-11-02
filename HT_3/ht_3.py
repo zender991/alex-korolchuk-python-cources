@@ -4,11 +4,12 @@ import time
 test_list = []
 test_list_float = []
 
-for i in range(5000):
+
+for i in range(100000):
     test_list.append(randint(0, 99))            #create random list of int
 
 
-for j in range(5000):
+for j in range(100000):
     test_list_float.append(uniform(0, 99.9))  #create random list of float
 
 
@@ -27,7 +28,6 @@ def bubble_sort(list_for_bubble):
     return list_for_bubble      # return sorted list
 
 
-
 def insertion_sort(list_for_ins):
 
     for i in range(1, len(list_for_ins)):   # select each element in a list
@@ -42,6 +42,17 @@ def insertion_sort(list_for_ins):
         list_for_ins[curr_index] = curr_value   # set current value as position
 
     return list_for_ins     # return sorted list
+
+
+def selection_sort(list_for_sel):
+
+    for i in range(len(list_for_sel)):
+        min_value = min(list_for_sel[i:])   # find minimum value
+        min_index = list_for_sel[i:].index(min_value)   # find min value index
+        list_for_sel[i + min_index] = list_for_sel[i]       # change min index element and firls element
+        list_for_sel[i] = min_value                  # change first element with min element
+
+    return list_for_sel # return sorted list
 
 
 def calculate_time(sort_func, sort_name):       # argements are func name and it argument
@@ -64,9 +75,7 @@ def compare_lists(first_list, second_list):
         return False    # return False if lists aren't equal
 
 
-
 def print_result (test_list, sort_type ):
-
 
     native_sorted_list = native_sort(test_list)     # sort list by native sort
     sorting_time, sorted_list = calculate_time(sort_type, test_list)    # sort list by custom sort and get time execution
@@ -75,18 +84,18 @@ def print_result (test_list, sort_type ):
           ', The list is sorted correctly - ' + str(compare_lists(sorted_list, native_sorted_list)))  # return True if native and custom sorting results are equal
 
 
-
-
 '''
 For run:
 - use func :  print_result(test_list, sort_type )
 - test_list : test_list - list of integers, test_list_float - list of floats
-- sort_type : bubble_sort, insertion_sort
+- sort_type : bubble_sort, insertion_sort, selection_sort
 
 '''
-#print_result(test_list, bubble_sort)
+print_result(test_list, bubble_sort)
 #print_result(test_list, insertion_sort)
+#print_result(test_list, selection_sort)
 #print_result(test_list_float, bubble_sort)
 #print_result(test_list_float, insertion_sort)
+#print_result(test_list_float, selection_sort)
 
 
