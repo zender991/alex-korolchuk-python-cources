@@ -3,7 +3,7 @@ import time
 
 #a = [34, 23, 56, 4]
 test_list = []
-for i in range(40):
+for i in range(5000):
     test_list.append(randint(0, 99))
 
 
@@ -19,12 +19,13 @@ def compare_lists(first_list, second_list):
         return False
 
 
-def calculate_time(f):
-    start_time = time.time()
-    print(start_time)
-    f
-    time_diff = time.time() - start_time
-    print(time_diff)
+def calculate_time(sort_title):
+
+    if sort_title == 'bubble':
+        start_time = time.time()
+        bubble_sort(test_list)
+        time_diff = time.time() - start_time
+
     return time_diff
 
 
@@ -68,6 +69,7 @@ def insertion_sort(list):
 
 
 
-print("{0:.4f}".format(calculate_time(bubble_sort(test_list))))
-print('The list is sorted correctly - ' + str(compare_lists(bubble_sort(test_list), native_sort(test_list))))
-print('The list is sorted correctly - ' + str(compare_lists(insertion_sort(test_list), native_sort(test_list))))
+print("{0:.4f}".format(calculate_time('bubble')))
+#print(list)
+#print('The list is sorted correctly - ' + str(compare_lists(bubble_sort(test_list), native_sort(test_list))))
+#print('The list is sorted correctly - ' + str(compare_lists(insertion_sort(test_list), native_sort(test_list))))
