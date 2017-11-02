@@ -6,10 +6,10 @@ import time
 test_list_int = []
 test_list_float = []
 
-for i in range(5000):
+for i in range(10000):
     test_list_int.append(randint(0, 99))            #create random list of int
 
-for j in range(5000):
+for j in range(10000):
     test_list_float.append(uniform(0, 99.9))  #create random list of float
 
 
