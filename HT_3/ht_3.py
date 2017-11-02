@@ -1,3 +1,8 @@
+'''This variant contains universal function for time calculation - calculate_time(sort_func, sort_name)
+Argument for this function - function for sorting and list for sorting
+'''
+
+
 from random import randint, uniform
 import time
 
@@ -91,11 +96,10 @@ For run:
 - sort_type : bubble_sort, insertion_sort, selection_sort
 
 '''
+
 print_result(test_list, bubble_sort)
 #print_result(test_list, insertion_sort)
 #print_result(test_list, selection_sort)
 #print_result(test_list_float, bubble_sort)
 #print_result(test_list_float, insertion_sort)
 #print_result(test_list_float, selection_sort)
-
-
