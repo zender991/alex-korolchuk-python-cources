@@ -41,20 +41,20 @@ for i in result:        # select each value in a list
     repeat_counter = 0      # make 0 to counter for next iteration
 
 
-l = 1
-for i in unique_list_full:
+list_index = 1
+for i in unique_list_full:  #select each item in a list
 
-    for j in unique_list_full[l:]:
-        if i[2] == j[2]:
-            unique_list_full.remove(j)
+    for j in unique_list_full[list_index:]:     # select next item in a list
+        if i[2] == j[2]:        # compare current description with all description in a list
+            unique_list_full.remove(j)  # remove duplicates
 
-    l += 1
+    list_index += 1     # select next element for compare
 
 
-with open('/python-cources/HT_4/reports/unique.csv', 'w') as myfile:
-    wr = csv.writer(myfile, quoting=csv.QUOTE_ALL)
-    t = ['count','marker', 'date_time', 'description']
-    wr.writerow(t)
+with open('/python-cources/HT_4/reports/unique.csv', 'w') as myfile:    # create csv file
+    wr = csv.writer(myfile, quoting=csv.QUOTE_ALL)      # initiate writer
+    column_titles = ['count','marker', 'date_time', 'description']  # set data for column titles
+    wr.writerow(column_titles)      # write data for column titles
     for i in unique_list_full:
-        i = [i[3], i[1], i[0], i[2]]
-        wr.writerow(i)
+        i = [i[3], i[1], i[0], i[2]]        # re-order values inside item
+        wr.writerow(i)              # write data in appropriate format to a file
