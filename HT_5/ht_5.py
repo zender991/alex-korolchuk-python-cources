@@ -23,18 +23,31 @@ print(options.cat)
 #category = "newstories"
 category = options.cat
 
-response = requests.get("https://hacker-news.firebaseio.com/v0/%s.json?print=pretty"%category)
+category_url = ("https://hacker-news.firebaseio.com/v0/%s.json?print=pretty"%category)
+response = requests.get(category_url, timeout=5)
 data = response.json()
+
+
+
+#
+# response = urllib.urlopen(url, timeout=5)
+# data = json.loads(response.read())
+
 
 print(data)
 
 json_list = []
 
 for i in data:
-    cur = requests.get("https://hacker-news.firebaseio.com/v0/item/%i.json?print=pretty"%i)
+    url_for_items = ("https://hacker-news.firebaseio.com/v0/item/%i.json?print=pretty" % i)
+    cur = requests.get(url_for_items, timeout=5)
+    #cur = urllib.urlopen(url2, timeout=5)
+
+
     json_file = {
         "category": category,
         "item": cur.json()
+        #"item": json.loads(cur.read())
     #     "item": {
     #         "fields": cur.json()
     #     },
