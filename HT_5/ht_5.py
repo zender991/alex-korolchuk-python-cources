@@ -25,9 +25,11 @@ score = options.score
 date = time.mktime(datetime.datetime.strptime(options.date, "%d/%m/%Y").timetuple())
 
 try:
+    logger.info("Send request to get  categories IDs")
     category_url = ("https://hacker-news.firebaseio.com/v0/%s.json?print=pretty"%category)
     response = requests.get(category_url, timeout=5)
     data = response.json()
+    logger.info("Categories IDs received")
 except Exception as e:
     logger.error(e)
 
@@ -39,22 +41,28 @@ except Exception as e:
 json_list = []
 
 for i in data[:4]:
-    url_for_items = ("https://hacker-news.firebaseio.com/v0/item/%i.json?print=pretty" % i)
-    cur = requests.get(url_for_items, timeout=5)
-    #cur = urllib.urlopen(url2, timeout=5)
+    try:
+        logger.info("Send request to get detailsed info about %i item" %i)
+        url_for_items = ("https://hacker-news.firebaseio.com/v0/item/%i.json?print=pretty" % i)
+        cur = requests.get(url_for_items, timeout=5)
+        #cur = urllib.urlopen(url2, timeout=5)
 
 
-    json_file = {
-        "category": category,
-        "item": cur.json()
-        #"item": json.loads(cur.read())
-    #     "item": {
-    #         "fields": cur.json()
-    #     },
-    }
+        json_file = {
+            "category": category,
+            "item": cur.json()
+            #"item": json.loads(cur.read())
+        #     "item": {
+        #         "fields": cur.json()
+        #     },
+        }
 
-    json_list.append(json_file)
-    #print(json_list)
+        json_list.append(json_file)
+        #print(json_list)
+        logger.info("Info about %i item stored" % i)
+    except Exception as e:
+        logger.error(e)
+
 
 
 
