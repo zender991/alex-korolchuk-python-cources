@@ -6,6 +6,7 @@ import logging
 import logging.config
 import time
 import datetime
+import re
 from config import category_list, default_category
 
 logging.config.fileConfig('logging.conf')
@@ -33,14 +34,10 @@ try:
 except Exception as e:
     logger.error(e)
 
-# response = urllib.urlopen(url, timeout=5)
-# data = json.loads(response.read())
-
-#print(data)
 
 json_list = []
 
-for i in data[:4]:
+for i in data[:20]:
     try:
         logger.info("Send request to get detailsed info about %i item" %i)
         url_for_items = ("https://hacker-news.firebaseio.com/v0/item/%i.json?print=pretty" % i)
@@ -70,23 +67,26 @@ g = json.dumps(json_list)
 u = json.loads(g)
 
 
-bigger_noticed_date = []
+filtered_list = []
 for i in u:
     if i['item']['time'] >= date and i['item']['score'] >= score:
-        bigger_noticed_date.append(i)
+        try:
+            a = re.search(r'(<[^>].*>)', i['item']['text'])
+            i['item']['text'] = i['item']['text'].replace(a.group(0), " ")
+            logger.info("Tags $s were removed")
+        except:
+            logger.info("Key text is absent in current item")
 
-print(bigger_noticed_date)
+        filtered_list.append(i)
 
-# x = json.loads(json_list)
-# f = csv.writer(open("test.csv", "wb+"))
-# f.writerow(["category", "item", "title", "url", "descendants"])
-#
-# for x in x:
-#     f.writerow([x["category"],
-#                 x["item"]["title"],
-#                 x["item"]["url"],
-#                 x["item"]["descendants"]])
+print(filtered_list)
 
 
-# with open("file.txt", "w") as output:
-#     output.write(json_list)
+
+with open('test.csv', 'w') as myfile:  # create csv file
+    wr = csv.writer(myfile, quoting=csv.QUOTE_ALL)      # initiate writer
+    column_titles = ["category", "item"]  # set data for column titles
+    wr.writerow(column_titles)      # write data for column titles
+    for filtered_list in filtered_list:
+        wr.writerow([filtered_list["category"],
+                    filtered_list["item"]])
