@@ -1,0 +1,38 @@
+2017-11-19 11:53:54,486 - exampleApp - INFO - -------------##############---------------
+2017-11-19 11:53:54,486 - exampleApp - INFO - Programm started
+2017-11-19 11:53:54,488 - exampleApp - INFO - Received category name - askstories
+2017-11-19 11:53:54,490 - exampleApp - INFO - Send request to get  categories IDs
+2017-11-19 11:53:55,142 - exampleApp - INFO - Categories IDs received
+2017-11-19 11:53:55,143 - exampleApp - INFO - Send request to get detailed info about items in a category
+2017-11-19 11:53:55,143 - exampleApp - INFO - Send request to get detailsed info about 15732087 item
+2017-11-19 11:53:55,853 - exampleApp - INFO - Info about 15732087 item stored
+2017-11-19 11:53:55,853 - exampleApp - INFO - Send request to get detailsed info about 15732752 item
+2017-11-19 11:53:56,505 - exampleApp - INFO - Info about 15732752 item stored
+2017-11-19 11:53:56,505 - exampleApp - INFO - Send request to get detailsed info about 15732765 item
+2017-11-19 11:53:57,147 - exampleApp - INFO - Info about 15732765 item stored
+2017-11-19 11:53:57,148 - exampleApp - INFO - Send request to get detailsed info about 15729471 item
+2017-11-19 11:53:57,796 - exampleApp - INFO - Info about 15729471 item stored
+2017-11-19 11:53:57,796 - exampleApp - INFO - Send request to get detailsed info about 15718653 item
+2017-11-19 11:53:58,476 - exampleApp - INFO - Info about 15718653 item stored
+2017-11-19 11:53:58,476 - exampleApp - INFO - Send request to get detailsed info about 15728416 item
+2017-11-19 11:53:59,121 - exampleApp - INFO - Info about 15728416 item stored
+2017-11-19 11:53:59,122 - exampleApp - INFO - Send request to get detailsed info about 15731320 item
+2017-11-19 11:53:59,764 - exampleApp - INFO - Info about 15731320 item stored
+2017-11-19 11:53:59,765 - exampleApp - INFO - Send request to get detailsed info about 15727166 item
+2017-11-19 11:54:00,432 - exampleApp - INFO - Info about 15727166 item stored
+2017-11-19 11:54:00,433 - exampleApp - INFO - Send request to get detailsed info about 15729218 item
+2017-11-19 11:54:01,087 - exampleApp - INFO - Info about 15729218 item stored
+2017-11-19 11:54:01,087 - exampleApp - INFO - Send request to get detailsed info about 15730368 item
+2017-11-19 11:54:01,735 - exampleApp - INFO - Info about 15730368 item stored
+2017-11-19 11:54:01,736 - exampleApp - INFO - Info about items is stored
+2017-11-19 11:54:01,737 - exampleApp - INFO - Key text is absent in item 15732087
+2017-11-19 11:54:01,738 - exampleApp - INFO - Tags were removed in an item 15732752
+2017-11-19 11:54:01,738 - exampleApp - INFO - Tags were removed in an item 15732765
+2017-11-19 11:54:01,739 - exampleApp - INFO - There are no tags  in an item 15729471
+2017-11-19 11:54:01,739 - exampleApp - INFO - Key text is absent in item 15718653
+2017-11-19 11:54:01,739 - exampleApp - INFO - There are no tags  in an item 15728416
+2017-11-19 11:54:01,739 - exampleApp - INFO - Tags were removed in an item 15731320
+2017-11-19 11:54:01,739 - exampleApp - INFO - There are no tags  in an item 15727166
+2017-11-19 11:54:01,740 - exampleApp - INFO - Tags were removed in an item 15729218
+2017-11-19 11:54:01,740 - exampleApp - INFO - Tags were removed in an item 15730368
+2017-11-19 11:54:01,741 - exampleApp - INFO - Programm finished
