@@ -16,11 +16,13 @@ import time
 import datetime
 import re
 import os
-from config import category_list, default_category, default_date, default_score
+from config import category_list, default_category, default_date, default_score, reports_file_name, \
+    reports_folder_name, categories_api_url, items_api_url
+
 
 
 try:
-    directory = "/python-cources/HT_5/reports"      # set path to reports directory
+    directory = ("/python-cources/HT_5/%s" % reports_folder_name)      # set path to reports directory
     if not os.path.exists(directory):
         os.makedirs(directory)                      # create directory if it doesn't exist
 except Exception as e:
@@ -49,7 +51,7 @@ date = time.mktime(datetime.datetime.strptime(options.date, "%d/%m/%Y").timetupl
 
 try:
     logger.info("Send request to get  categories IDs")
-    category_url = ("https://hacker-news.firebaseio.com/v0/%s.json?print=pretty"%category)
+    category_url = (categories_api_url %category)
     response = requests.get(category_url, timeout=5)
     data = response.json()
     logger.info("Categories IDs received")
@@ -63,7 +65,7 @@ logger.info("Send request to get detailed info about items in a category")
 for i in data[:4]:
     try:
         logger.info("Send request to get detailsed info about %i item" %i)
-        url_for_items = ("https://hacker-news.firebaseio.com/v0/item/%i.json?print=pretty" % i)
+        url_for_items = (items_api_url % i)
         cur = requests.get(url_for_items, timeout=5)
 
         json_file = {
@@ -100,8 +102,9 @@ for i in u:
 print(filtered_list)
 
 
+
 try:
-    with open('/python-cources/HT_5/reports/report.csv', 'w') as myfile:  # create csv file
+    with open('/python-cources/HT_5/%s/%s' % (reports_folder_name, reports_file_name), 'w') as myfile:  # create csv file
         wr = csv.writer(myfile, quoting=csv.QUOTE_ALL)      # initiate writer
         column_titles = ["category", "item"]  # set data for column titles
         wr.writerow(column_titles)      # write data for column titles
@@ -110,3 +113,5 @@ try:
                         filtered_list["item"]])
 except:
     logger.error("Can't create report file")
+
+logger.info("Programm finished")
