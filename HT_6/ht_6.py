@@ -35,3 +35,36 @@ a.divide(20, 6)
 print(a.last_result)
 a.multiply(3, 7)
 print(a.last_result)
+
+
+'''Створити клас Person, в якому буде присутнім метод __init__ який буде приймати * аргументів, які зберігатиме в
+відповідні змінні. Методи, які повинні бути в класі Person - show_age, print_name, show_all_information.
+Створіть 2 екземпляри класу Person та в кожному з екземплярів створіть атребут profession.'''
+
+
+class Person(object):
+    def __init__(self, first_name, last_name, age, gender):
+        self.first_name = first_name
+        self.last_name = last_name
+        self.age = age
+        self.gender = gender
+
+    def show_age(self):
+        return print("%s is %i years old" % (self.first_name, self.age))
+
+    def print_name(self):
+        return print("User's full name is %s %s" % (self.first_name, self.last_name))
+
+    def show_all_information(self):
+        return print("User's full information: First name - %s, Last name - %s, Age - %i, Gender - %s" %
+                     (self.first_name, self.last_name, self.age, self.gender))
+
+
+john = Person("John", "Smith", 43, "male")
+sarah = Person("Sarah", "Connor", 56, "female")
+
+john.show_age()
+john.print_name()
+john.show_all_information()
+john.profession = "gg"
+print(john.profession)
