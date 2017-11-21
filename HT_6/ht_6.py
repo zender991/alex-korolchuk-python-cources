@@ -68,3 +68,94 @@ john.print_name()
 john.show_all_information()
 john.profession = "gg"
 print(john.profession)
+
+
+'''Напишіть програму, де клас «геометричні фігури» (figure) містить властивість color з початковим значенням white і
+метод для зміни кольору фігури, а його підкласи «овал» (oval) і «квадрат» (square) містять методи __init__ для
+завдання початкових розмірів об'єктів при їх створенні.'''
+
+
+class Figure(object):
+    color = "white"
+
+    def change_color(self, color):
+        self.color = color
+        return self.color
+
+
+class Oval(Figure):
+
+    def __init__(self, width, height):
+        self.width = width
+        self.height = height
+
+    def find_square(self):
+        oval_square = self.height * self.width * 3.1415
+        return oval_square
+
+
+class Square(Figure):
+
+    def __init__(self, width):
+        self.width = width
+
+    def find_square(self):
+        square_area = self.width ** 2
+        return square_area
+
+
+b = Oval(4, 5)
+print(b.find_square())
+
+c = Square(5)
+print(c.find_square())
+print(c.color)
+c.change_color("red")
+print(c.color)
+
+
+'''Видозмініть програму так, щоб метод __init__ мався в класі «геометричні фігури» та приймав кольор фігури при
+створенні екземпляру, а методи __init__ підкласів доповнювали його та додавали початкові розміри.'''
+
+
+class Figure2(object):
+
+    def __init__(self, color):
+        self.color = color
+
+    def change_color2(self, color):
+        self.color = color
+        return self.color
+
+
+class Oval2(Figure2):
+
+    def __init__(self, width, height, color):
+        Figure2.__init__(self, color)
+
+        self.width = width
+        self.height = height
+
+    def find_square2(self):
+        oval_square = "%s oval has square - %f" % (self.color, (self.height * self.width * 3.1415))
+        return oval_square
+
+
+class Square2(Figure2):
+
+    def __init__(self, width, color):
+        Figure2.__init__(self, color)
+
+        self.width = width
+
+    def find_square2(self):
+        square_area = "%s square has area - %f" % (self.color, (self.width ** 2))
+        return square_area
+
+
+d = Oval2(5, 9, "blue")
+print(d.find_square2())
+e = Square2(6, "brown")
+print(e.find_square2())
+e.change_color2("black")
+print(e.find_square2())
