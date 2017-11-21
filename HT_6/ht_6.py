@@ -159,3 +159,32 @@ e = Square2(6, "brown")
 print(e.find_square2())
 e.change_color2("black")
 print(e.find_square2())
+
+
+'''Створіть за допомогою класів та продемонструйте свою реалізацію шкільної бібліотеки(включіть фантазію).'''
+
+
+'''Напишіть програму в стилі ООП, що задовольняє наступним умовам: у програмі повинні бути два класи та два об'єкта,
+що належать різним класам; один об'єкт за допомогою методу свого класу повинен так чи інакше змінювати дані
+іншого об'єкта'''
+
+
+'''Створіть клас в якому буде атребут який буде рахувати кількість створених екземплярів класів.'''
+
+
+class Example(object):
+
+    instance_count = 0
+
+    def __init__(self):
+        Example.instance_count += 1
+
+    def get_instance_count(self):
+        return self.instance_count
+
+
+example1 = Example()
+example2 = Example()
+example3 = Example()
+print(example1.get_instance_count())
+
