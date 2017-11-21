@@ -188,3 +188,37 @@ example2 = Example()
 example3 = Example()
 print(example1.get_instance_count())
 
+
+'''Створити пустий клас, який називається Thing. Потім створіть об'єкт example цього класу. Виведіть типи зазначених
+об'єктів. Створіть новий клас Thing2 і призначте йому атрибут letters зі значенням 'abc' . Виведіть на екран значення
+атрибута letters. Створіть ще один клас Thing3 . Присвойте значення 'xyz' атрибуту об'єкта, який називається letters.
+Виведіть на екран значення атрибута letters . '''
+
+
+class Thing(object):
+    pass
+
+
+class Thing2(object):
+    letters = "abc"
+
+
+class Thing3(object):
+    pass
+
+
+example = Thing()
+print(Thing.__class__)
+print(example.__class__)
+
+print(Thing2.letters)
+
+Thing3.letters = "xyz"
+print(Thing3.letters)
+
+
+'''Створіть клас, який називається DefaultClass що має атрибути об'єкту name, symbol number . Виведіть атребути.'''
+
+DefaultClass
+
+
