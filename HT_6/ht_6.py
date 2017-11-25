@@ -343,3 +343,29 @@ user.print_info()
 
 '''Створіть 3 класи, 2 з яких будуть успадковуватись один від одного! В суперкласі мається метод __init__ який 
 приймає 2 атребути. Перегрузіть конструктор класу в дочірньому класі так, щоб додався ще один атребут. '''
+
+
+class TV(object):
+    def __init__(self, brand, diagonal):
+        self.brand = brand
+        self.diagonal = diagonal
+
+
+class UsualTV(TV):
+
+    def show_parameters(self):
+        return print(self.brand, self.diagonal)
+
+
+class SmartTV(TV):
+    def __init__(self, brand, diagonal, os):
+        TV.__init__(self, brand, diagonal)
+
+        self.os = os
+
+    def show_parameters(self):
+        return print(self.brand, self.diagonal, self.os)
+
+
+tv = SmartTV("Samsung", 49, "Tizen")
+tv.show_parameters()
