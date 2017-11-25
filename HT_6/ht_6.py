@@ -164,10 +164,100 @@ print(e.find_square2())
 '''Створіть за допомогою класів та продемонструйте свою реалізацію шкільної бібліотеки(включіть фантазію).'''
 
 
+class Book(object):
+
+    books_list = []
+
+    def add_book(self, author, title):
+        self.author = author
+        self.title = title
+        Book.books_list.append([self.author,self.title])
+
+    def show_all_books(self):
+        return print(Book.books_list)
+
+    def find_book_by_author(self, author):
+        self.author = author
+        found_books = []
+
+        for i in Book.books_list:
+            for j in i:
+                if j == self.author:
+                    found_books.append(i)
+
+        return print(found_books)
+
+    def find_book_by_title(self, title):
+        self.title = title
+        found_books = []
+
+        for i in Book.books_list:
+            for j in i:
+                if j == self.title:
+                    found_books.append(i)
+
+        return print(found_books)
+
+
+class Pupil(object):
+    pupils_list = []
+
+    def add_pupil(self, name):
+        self.name = name
+        Pupil.pupils_list.append(name)
+
+    def show_all_pupils(self):
+        return print(Pupil.pupils_list)
+
+
+class Order(object):
+    ordered_books = []
+    def get_book(self, name, book):
+        self.name = name
+        self.book = book
+        Order.ordered_books.append([self.name,self.book])
+
+    def show_all_orders(self):
+        return print(Order.ordered_books)
+
+
+new_book = Book()
+new_book.add_book("King", "Shinning")
+new_book.add_book("Rowling", "Potter")
+new_book.add_book("King", "It")
+new_book.show_all_books()
+new_book.find_book_by_author("King")
+new_book.find_book_by_title("It")
+new_pupil = Pupil()
+new_pupil.add_pupil("John")
+new_pupil.add_pupil("Steve")
+new_pupil.show_all_pupils()
+new_order = Order()
+new_order.get_book(Pupil.pupils_list[1], Book.books_list[0])
+new_order.get_book(Pupil.pupils_list[0], Book.books_list[2])
+new_order.show_all_orders()
+
 '''Напишіть програму в стилі ООП, що задовольняє наступним умовам: у програмі повинні бути два класи та два об'єкта,
 що належать різним класам; один об'єкт за допомогою методу свого класу повинен так чи інакше змінювати дані
 іншого об'єкта'''
 
+
+class First(object):
+    attr1 = 1
+
+    def change(self, attr):
+        self.attr = attr
+        self.attr = 3
+        return self.attr
+
+
+class Second(object):
+    attr2 = 2
+
+f_object = First()
+s_object = Second()
+
+print(f_object.change(s_object.attr2))
 
 '''Створіть клас в якому буде атребут який буде рахувати кількість створених екземплярів класів.'''
 
@@ -204,7 +294,7 @@ class Thing2(object):
 
 
 class Thing3(object):
-    pass
+    letters = "xyz"
 
 
 example = Thing()
@@ -213,12 +303,43 @@ print(example.__class__)
 
 print(Thing2.letters)
 
-Thing3.letters = "xyz"
 print(Thing3.letters)
 
 
 '''Створіть клас, який називається DefaultClass що має атрибути об'єкту name, symbol number . Виведіть атребути.'''
 
-DefaultClass
+
+class DefaultClass(object):
+    name = "Some name"
+    symbol_number = "Some number"
 
 
+inst = DefaultClass()
+print(inst.name)
+print(inst.symbol_number)
+
+
+'''Створіть словник з наступними ключами і значеннями: 'name': 'Vasya', 'l_name': 'Pupkin', 'age': 20 . 
+Далі створіть об'єкт з ім'ям user класу DefaultClass1за допомогою цього словника.
+Для класу DefaultClass1 визначте метод з ім'ям print_info() , що виводить на екран значення атрибутів об'єкта 
+(name , l_name та age ).'''
+
+
+dict = {'name': 'Vasya', 'l_name': 'Pupkin', 'age': 20}
+
+
+class DefaultClass1(object):
+    def __init__(self, name, l_name, age):
+        self.name = name
+        self.l_name = l_name
+        self.age = age
+
+    def print_info(self):
+        return print(self.name, self.l_name, self.age)
+
+
+user = DefaultClass1(**dict)
+user.print_info()
+
+'''Створіть 3 класи, 2 з яких будуть успадковуватись один від одного! В суперкласі мається метод __init__ який 
+приймає 2 атребути. Перегрузіть конструктор класу в дочірньому класі так, щоб додався ще один атребут. '''
