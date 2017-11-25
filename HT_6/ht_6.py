@@ -44,29 +44,30 @@ print(a.last_result)
 
 class Person(object):
     def __init__(self, first_name, last_name, age, gender):
-        self.first_name = first_name
+        self.first_name = first_name            # write received values into variables
         self.last_name = last_name
         self.age = age
         self.gender = gender
 
     def show_age(self):
-        return print("%s is %i years old" % (self.first_name, self.age))
+        return print("%s is %i years old" % (self.first_name, self.age))    # show person age
 
     def print_name(self):
-        return print("User's full name is %s %s" % (self.first_name, self.last_name))
+        return print("User's full name is %s %s" % (self.first_name, self.last_name))   # show full name
 
     def show_all_information(self):
         return print("User's full information: First name - %s, Last name - %s, Age - %i, Gender - %s" %
-                     (self.first_name, self.last_name, self.age, self.gender))
+                     (self.first_name, self.last_name, self.age, self.gender))  # show all user info
 
 
-john = Person("John", "Smith", 43, "male")
+john = Person("John", "Smith", 43, "male")      # create two instances
 sarah = Person("Sarah", "Connor", 56, "female")
 
 john.show_age()
 john.print_name()
 john.show_all_information()
-john.profession = "gg"
+john.profession = "programmer"      # add attribute profession for instance
+sarah.profession = "plumber"
 print(john.profession)
 
 
@@ -76,31 +77,31 @@ print(john.profession)
 
 
 class Figure(object):
-    color = "white"
+    color = "white"             # initial color attribute
 
     def change_color(self, color):
         self.color = color
-        return self.color
+        return self.color       # return changed color
 
 
 class Oval(Figure):
 
-    def __init__(self, width, height):
+    def __init__(self, width, height):      # arguments for instance creating
         self.width = width
         self.height = height
 
     def find_square(self):
-        oval_square = self.height * self.width * 3.1415
+        oval_square = self.height * self.width * 3.1415     # find oval square
         return oval_square
 
 
 class Square(Figure):
 
-    def __init__(self, width):
+    def __init__(self, width):      # arguments for instance creating
         self.width = width
 
     def find_square(self):
-        square_area = self.width ** 2
+        square_area = self.width ** 2       # find square
         return square_area
 
 
@@ -110,7 +111,7 @@ print(b.find_square())
 c = Square(5)
 print(c.find_square())
 print(c.color)
-c.change_color("red")
+c.change_color("red")       # check that color is changed
 print(c.color)
 
 
@@ -130,7 +131,7 @@ class Figure2(object):
 
 class Oval2(Figure2):
 
-    def __init__(self, width, height, color):
+    def __init__(self, width, height, color):       # reload initial constructor
         Figure2.__init__(self, color)
 
         self.width = width
@@ -143,7 +144,7 @@ class Oval2(Figure2):
 
 class Square2(Figure2):
 
-    def __init__(self, width, color):
+    def __init__(self, width, color):       # reload initial constructor
         Figure2.__init__(self, color)
 
         self.width = width
@@ -168,13 +169,13 @@ class Book(object):
 
     books_list = []
 
-    def add_book(self, author, title):
+    def add_book(self, author, title):          # add book to a library
         self.author = author
         self.title = title
-        Book.books_list.append([self.author,self.title])
+        Book.books_list.append([self.author, self.title])    # add book to a list
 
     def show_all_books(self):
-        return print(Book.books_list)
+        return print(Book.books_list)           # show all books in a library
 
     def find_book_by_author(self, author):
         self.author = author
@@ -182,8 +183,8 @@ class Book(object):
 
         for i in Book.books_list:
             for j in i:
-                if j == self.author:
-                    found_books.append(i)
+                if j == self.author:        # compare each author with entered value
+                    found_books.append(i)   # add to list matched books
 
         return print(found_books)
 
@@ -193,8 +194,8 @@ class Book(object):
 
         for i in Book.books_list:
             for j in i:
-                if j == self.title:
-                    found_books.append(i)
+                if j == self.title:         # compare each title with entered value
+                    found_books.append(i)   # add to list matched books
 
         return print(found_books)
 
@@ -202,12 +203,12 @@ class Book(object):
 class Pupil(object):
     pupils_list = []
 
-    def add_pupil(self, name):
+    def add_pupil(self, name):              # add new pupil to library
         self.name = name
         Pupil.pupils_list.append(name)
 
     def show_all_pupils(self):
-        return print(Pupil.pupils_list)
+        return print(Pupil.pupils_list)     # show all pupil in library base
 
 
 class Order(object):
@@ -215,10 +216,10 @@ class Order(object):
     def get_book(self, name, book):
         self.name = name
         self.book = book
-        Order.ordered_books.append([self.name,self.book])
+        Order.ordered_books.append([self.name,self.book])  # add to list who took a book
 
     def show_all_orders(self):
-        return print(Order.ordered_books)
+        return print(Order.ordered_books)           # show all borrowed books and owners
 
 
 new_book = Book()
@@ -233,7 +234,7 @@ new_pupil.add_pupil("John")
 new_pupil.add_pupil("Steve")
 new_pupil.show_all_pupils()
 new_order = Order()
-new_order.get_book(Pupil.pupils_list[1], Book.books_list[0])
+new_order.get_book(Pupil.pupils_list[1], Book.books_list[0])        # arguments take from classes
 new_order.get_book(Pupil.pupils_list[0], Book.books_list[2])
 new_order.show_all_orders()
 
@@ -257,7 +258,7 @@ class Second(object):
 f_object = First()
 s_object = Second()
 
-print(f_object.change(s_object.attr2))
+print(f_object.change(s_object.attr2))      # use method from first class for changes in the second class
 
 '''Створіть клас в якому буде атребут який буде рахувати кількість створених екземплярів класів.'''
 
@@ -267,10 +268,10 @@ class Example(object):
     instance_count = 0
 
     def __init__(self):
-        Example.instance_count += 1
+        Example.instance_count += 1         # increase counter after each instance creating
 
     def get_instance_count(self):
-        return self.instance_count
+        return self.instance_count          # get result count
 
 
 example1 = Example()
@@ -298,10 +299,10 @@ class Thing3(object):
 
 
 example = Thing()
-print(Thing.__class__)
+print(Thing.__class__)      # display type
 print(example.__class__)
 
-print(Thing2.letters)
+print(Thing2.letters)       # display attribute value
 
 print(Thing3.letters)
 
@@ -310,12 +311,12 @@ print(Thing3.letters)
 
 
 class DefaultClass(object):
-    name = "Some name"
+    name = "Some name"      # set attributes
     symbol_number = "Some number"
 
 
 inst = DefaultClass()
-print(inst.name)
+print(inst.name)        # display attributes
 print(inst.symbol_number)
 
 
@@ -329,16 +330,16 @@ dict = {'name': 'Vasya', 'l_name': 'Pupkin', 'age': 20}
 
 
 class DefaultClass1(object):
-    def __init__(self, name, l_name, age):
+    def __init__(self, name, l_name, age):      # set instance constructor
         self.name = name
         self.l_name = l_name
         self.age = age
 
     def print_info(self):
-        return print(self.name, self.l_name, self.age)
+        return print(self.name, self.l_name, self.age)      # show full info
 
 
-user = DefaultClass1(**dict)
+user = DefaultClass1(**dict)        # use kwargs for dictinary arguments
 user.print_info()
 
 '''Створіть 3 класи, 2 з яких будуть успадковуватись один від одного! В суперкласі мається метод __init__ який 
@@ -346,19 +347,19 @@ user.print_info()
 
 
 class TV(object):
-    def __init__(self, brand, diagonal):
+    def __init__(self, brand, diagonal):        # set initial constructor
         self.brand = brand
         self.diagonal = diagonal
 
 
-class UsualTV(TV):
+class UsualTV(TV):      # use parent class
 
     def show_parameters(self):
         return print(self.brand, self.diagonal)
 
 
 class SmartTV(TV):
-    def __init__(self, brand, diagonal, os):
+    def __init__(self, brand, diagonal, os):    # reload parent constructor. add additional argument
         TV.__init__(self, brand, diagonal)
 
         self.os = os
