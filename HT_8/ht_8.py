@@ -3,6 +3,7 @@ import requests
 import csv
 import json
 import os
+import xlsxwriter
 
 try:
     directory = ("/python-cources/HT_8/reports")  # set path to reports directory
@@ -166,6 +167,37 @@ def write_to_txt_file(result, file_name):
         fp.write(str(result))
 
 
+def write_to_xls_all_authors(result):
+    workbook = xlsxwriter.Workbook('reports/authors_details.xls')
+    worksheet = workbook.add_worksheet()
+
+    counter = 1
+    row = 0
+    col = 0
+    for i in result:
+        worksheet.write(row, col, "Recond %i" % counter)
+        row += 1
+        worksheet.write(row, col, "Author url")
+        worksheet.write(row, col + 1, i["author"]["url"])
+        row += 1
+        worksheet.write(row, col, "Author name")
+        worksheet.write(row, col + 1, i["author"]["author-title"])
+        row += 1
+        worksheet.write(row, col, "Author birth date")
+        worksheet.write(row, col + 1, i["author"]["born_date"])
+        row += 1
+        worksheet.write(row, col, "Author birth place")
+        worksheet.write(row, col + 1, i["author"]["born_place"])
+        row += 1
+        worksheet.write(row, col, "Author description")
+        worksheet.write(row, col + 1, i["author"]["author_description"])
+        row += 1
+        worksheet.write(row, col, "")
+        row += 1
+        counter += 1
+
+
+
 
 full_info = find_full_info()
 write_to_csv_full_info(full_info)
@@ -176,6 +208,7 @@ all_authors = find_all_authors()
 write_to_csv_all_authors(all_authors)
 write_to_json_file(all_authors, "authors_details")
 write_to_txt_file(all_authors, "authors_details")
+write_to_xls_all_authors(all_authors)
 
 all_tags = find_all_tags()
 write_tags_to_csv(all_tags)
