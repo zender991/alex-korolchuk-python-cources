@@ -4,9 +4,7 @@ import csv
 import json
 
 
-
-
-def show_full_info():
+def find_full_info():
     url = "http://quotes.toscrape.com/"
     page = requests.get(url)
 
@@ -40,33 +38,7 @@ def show_full_info():
     return result
 
 
-def write_to_csv_full_info(result):
-    csv_file = open('full_results.csv', 'w')
-    csv_writer = csv.writer(csv_file, quoting=csv.QUOTE_ALL)
-
-    counter = 1
-    for i in result:
-        csv_writer.writerow(["Recond %i" %counter])
-        quote_csv = "Quote", i["text"]
-        csv_writer.writerow(quote_csv)
-        csv_writer.writerow(["Author"])
-        author_url_csv = "", "Author url", i["author"]["url"]
-        csv_writer.writerow(author_url_csv)
-        author_title_csv = "", "Author name", i["author"]["author-title"]
-        csv_writer.writerow(author_title_csv)
-        author_born_csv = "", "Author birth date", i["author"]["born_date"]
-        csv_writer.writerow(author_born_csv)
-        author_born_place_csv = "", "Author birth place", i["author"]["born_place"]
-        csv_writer.writerow(author_born_place_csv)
-        author_description_csv = "", "Author description", i["author"]["author_description"]
-        csv_writer.writerow(author_description_csv)
-        csv_writer.writerow("")
-
-        counter += 1
-
-
-
-def show_all_authors():
+def find_all_authors():
     url = "http://quotes.toscrape.com/"
     page = requests.get(url)
 
@@ -104,6 +76,23 @@ def show_all_authors():
     return result
 
 
+def find_all_tags():
+    url = "http://quotes.toscrape.com/"
+    page = requests.get(url)
+
+    soup = BeautifulSoup(page.content)
+
+    tags_list = []
+    for item in soup.find_all("div", {"class": "tags"}):
+        tags = item.find_all("a", {"class": "tag"})
+        for tag in tags:
+            if tag.text not in tags_list:
+                tags_list.append(tag.text)
+            else:
+                pass
+
+    return tags_list
+
 
 def write_to_csv_all_authors(result):
     csv_file = open('authors_details.csv', 'w')
@@ -126,6 +115,39 @@ def write_to_csv_all_authors(result):
 
         counter += 1
 
+def write_to_csv_full_info(result):
+    csv_file = open('full_results.csv', 'w')
+    csv_writer = csv.writer(csv_file, quoting=csv.QUOTE_ALL)
 
-write_to_csv_full_info(show_full_info())
-write_to_csv_all_authors(show_all_authors())
+    counter = 1
+    for i in result:
+        csv_writer.writerow(["Recond %i" %counter])
+        quote_csv = "Quote", i["text"]
+        csv_writer.writerow(quote_csv)
+        csv_writer.writerow(["Author"])
+        author_url_csv = "", "Author url", i["author"]["url"]
+        csv_writer.writerow(author_url_csv)
+        author_title_csv = "", "Author name", i["author"]["author-title"]
+        csv_writer.writerow(author_title_csv)
+        author_born_csv = "", "Author birth date", i["author"]["born_date"]
+        csv_writer.writerow(author_born_csv)
+        author_born_place_csv = "", "Author birth place", i["author"]["born_place"]
+        csv_writer.writerow(author_born_place_csv)
+        author_description_csv = "", "Author description", i["author"]["author_description"]
+        csv_writer.writerow(author_description_csv)
+        csv_writer.writerow("")
+
+        counter += 1
+
+
+def write_tags_to_csv(result):
+    csv_file = open('all_tags.csv', 'w')
+    csv_writer = csv.writer(csv_file, quoting=csv.QUOTE_ALL)
+
+    for i in result:
+        csv_writer.writerow([i])
+
+
+write_to_csv_full_info(find_full_info())
+write_to_csv_all_authors(find_all_authors())
+write_tags_to_csv(find_all_tags())
