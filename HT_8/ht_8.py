@@ -39,7 +39,7 @@ def find_full_info():
             "url": author_full_url,
             "author-title": author_name,
             "born_date": author_born_date,
-            "born_place": author_location,
+            "born_place": author_location[3:],
             "author_description": author_description[:100].lstrip()
         }
 
@@ -74,7 +74,7 @@ def find_all_authors():
                 "url": author_full_url,
                 "author-title": author_name,
                 "born_date": author_born_date,
-                "born_place": author_location,
+                "born_place": author_location[3:],
                 "author_description": author_description[:100].lstrip()
             }
             authors_list.append(author_name)
@@ -103,8 +103,8 @@ def find_all_tags():
     return tags_list
 
 
-def write_to_csv_all_authors(result):
-    csv_file = open('reports/authors_details.csv', 'w')
+def write_to_csv_all_authors(result, file_name):
+    csv_file = open('reports/%s.csv' %file_name, 'w')
     csv_writer = csv.writer(csv_file, quoting=csv.QUOTE_ALL)
 
     counter = 1
@@ -118,7 +118,7 @@ def write_to_csv_all_authors(result):
         csv_writer.writerow(author_born_csv)
         author_born_place_csv = "Author birth place", i["author"]["born_place"]
         csv_writer.writerow(author_born_place_csv)
-        author_description_csv = "", "Author description", i["author"]["author_description"]
+        author_description_csv = "Author description", i["author"]["author_description"]
         csv_writer.writerow(author_description_csv)
         csv_writer.writerow("")
 
@@ -197,15 +197,105 @@ def write_to_xls_all_authors(result):
         counter += 1
 
 
+def write_to_xls_full_info(result):
+    workbook = xlsxwriter.Workbook('reports/full_results.xls')
+    worksheet = workbook.add_worksheet()
+
+    counter = 1
+    row = 0
+    col = 0
+    for i in result:
+        worksheet.write(row , col, "Recond %i" % counter)
+        row += 1
+        worksheet.write(row, col, "Quote")
+        worksheet.write(row, col + 1, i["text"])
+        row += 1
+        worksheet.write(row, col, "Author")
+        row += 1
+        worksheet.write(row, col + 1, "Author url")
+        worksheet.write(row, col + 2, i["author"]["url"])
+        row += 1
+        worksheet.write(row, col + 1, "Author name")
+        worksheet.write(row, col + 2, i["author"]["author-title"])
+        row += 1
+        worksheet.write(row, col + 1, "Author birth date")
+        worksheet.write(row, col + 2, i["author"]["born_date"])
+        row += 1
+        worksheet.write(row, col + 1, "Author birth place")
+        worksheet.write(row, col + 2, i["author"]["born_place"])
+        row += 1
+        worksheet.write(row, col + 1, "Author description")
+        worksheet.write(row, col + 2, i["author"]["author_description"])
+        row += 1
+        worksheet.write(row, col, "")
+        row += 1
+        counter += 1
+
+
+def write_tags_to_xls(result):
+    workbook = xlsxwriter.Workbook('reports/all_tags.xls')
+    worksheet = workbook.add_worksheet()
+
+    row = 0
+    col = 0
+
+    for i in result:
+        worksheet.write(row, col, i)
+        row += 1
+
+
+def find_author_by_name(*name):
+    url = "http://quotes.toscrape.com/"
+    page = requests.get(url)
+
+    soup = BeautifulSoup(page.content)
+    search_request = name
+    authors = soup.find_all("small", {"itemprop":"author"})
+    unique_authors = set(authors)
+
+    result = []
+    for i in unique_authors:
+        for request_name in search_request:
+            if i.text == request_name:
+                parent_span = i.parent
+                author_url = parent_span.find("a").get("href")
+                author_full_url = "http://quotes.toscrape.com/" + author_url
+
+                author_details = requests.get(author_full_url)
+                author_soup = BeautifulSoup(author_details.content)
+
+                for item in author_soup.find_all("div", {"class": "author-details"}):
+                    author_born_date = item.contents[3].find("span", {"class": "author-born-date"}).text
+                    author_location = item.contents[3].find("span", {"class": "author-born-location"}).text
+                    author_description = item.find("div", {"class": "author-description"}).text
+
+                dict = {}
+                dict["author"] = {
+                    "url": author_full_url,
+                    "author-title": request_name,
+                    "born_date": author_born_date,
+                    "born_place": author_location[3:],
+                    "author_description": author_description[:100].lstrip()
+                }
+
+                result.append(dict)
+
+            else:
+                pass
+
+    return result
+
+
 
 
 full_info = find_full_info()
 write_to_csv_full_info(full_info)
 write_to_json_file(full_info, "full_results")
 write_to_txt_file(full_info, "full_results")
+write_to_xls_full_info(full_info)
 
 all_authors = find_all_authors()
-write_to_csv_all_authors(all_authors)
+write_to_csv_all_authors(all_authors, "authors_details")
 write_to_json_file(all_authors, "authors_details")
 write_to_txt_file(all_authors, "authors_details")
 write_to_xls_all_authors(all_authors)
@@ -214,3 +304,7 @@ all_tags = find_all_tags()
 write_tags_to_csv(all_tags)
 write_to_json_file(all_tags, "all_tags")
 write_to_txt_file(all_tags, "all_tags")
+write_tags_to_xls(all_tags)
+
+search = find_author_by_name("Jane Austen", "Albert Einstein")
+write_to_csv_all_authors(search, "search_results")
