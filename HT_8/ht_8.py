@@ -2,6 +2,14 @@ from bs4 import BeautifulSoup
 import requests
 import csv
 import json
+import os
+
+try:
+    directory = ("/python-cources/HT_8/reports")  # set path to reports directory
+    if not os.path.exists(directory):
+        os.makedirs(directory)  # create directory if it doesn't exist
+except Exception as e:
+    print(e)
 
 
 def find_full_info():
@@ -95,7 +103,7 @@ def find_all_tags():
 
 
 def write_to_csv_all_authors(result):
-    csv_file = open('authors_details.csv', 'w')
+    csv_file = open('reports/authors_details.csv', 'w')
     csv_writer = csv.writer(csv_file, quoting=csv.QUOTE_ALL)
 
     counter = 1
@@ -116,7 +124,7 @@ def write_to_csv_all_authors(result):
         counter += 1
 
 def write_to_csv_full_info(result):
-    csv_file = open('full_results.csv', 'w')
+    csv_file = open('reports/full_results.csv', 'w')
     csv_writer = csv.writer(csv_file, quoting=csv.QUOTE_ALL)
 
     counter = 1
@@ -141,13 +149,35 @@ def write_to_csv_full_info(result):
 
 
 def write_tags_to_csv(result):
-    csv_file = open('all_tags.csv', 'w')
+    csv_file = open('reports/all_tags.csv', 'w')
     csv_writer = csv.writer(csv_file, quoting=csv.QUOTE_ALL)
 
     for i in result:
         csv_writer.writerow([i])
 
 
-write_to_csv_full_info(find_full_info())
-write_to_csv_all_authors(find_all_authors())
-write_tags_to_csv(find_all_tags())
+def write_to_json_file(result, file_name):
+    with open('reports/%s.json' %file_name, 'w') as fp:
+        json.dump(result, fp)
+
+
+def write_to_txt_file(result, file_name):
+    with open('reports/%s.txt' %file_name, 'w') as fp:
+        fp.write(str(result))
+
+
+
+full_info = find_full_info()
+write_to_csv_full_info(full_info)
+write_to_json_file(full_info, "full_results")
+write_to_txt_file(full_info, "full_results")
+
+all_authors = find_all_authors()
+write_to_csv_all_authors(all_authors)
+write_to_json_file(all_authors, "authors_details")
+write_to_txt_file(all_authors, "authors_details")
+
+all_tags = find_all_tags()
+write_tags_to_csv(all_tags)
+write_to_json_file(all_tags, "all_tags")
+write_to_txt_file(all_tags, "all_tags")
