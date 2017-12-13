@@ -5,6 +5,7 @@ import json
 import os
 import xlsxwriter
 
+
 try:
     directory = ("/python-cources/HT_8/reports")  # set path to reports directory
     if not os.path.exists(directory):
@@ -70,14 +71,12 @@ def find_full_info():
             has_next = False
 
 
-
 def find_all_authors():
     next_page_url = ''
     has_next = True
     authors_list = []
     while has_next:
         url = "http://quotes.toscrape.com" + next_page_url
-        print(url)
         page = requests.get(url)
         soup = BeautifulSoup(page.content, 'html5lib')
 
@@ -85,7 +84,6 @@ def find_all_authors():
         for i in soup.find_all("div", {"itemtype": "http://schema.org/CreativeWork"}):
             result = []
             author_name = i.contents[3].find("small", {"itemprop": "author"}).text
-            print(authors_list)
             if author_name not in authors_list:
                 author_url = i.contents[3].find("a").get("href")
                 author_full_url = url + author_url
@@ -108,7 +106,6 @@ def find_all_authors():
                 }
                 authors_list.append(author_name)
                 result.append(dict)
-                print(result)
                 write_to_json_file(result, "authors_details")
                 write_to_txt_file(result, "authors_details")
                 write_to_csv_all_authors(result)
@@ -122,7 +119,34 @@ def find_all_authors():
             has_next = False
 
 
+def find_all_tags():
+    next_page_url = ''
+    has_next = True
+    tags_list = []
 
+    while has_next:
+        url = "http://quotes.toscrape.com" + next_page_url
+        page = requests.get(url)
+        soup = BeautifulSoup(page.content, 'html5lib')
+
+        for item in soup.find_all("div", {"class": "tags"}):
+            tags = item.find_all("a", {"class": "tag"})
+            for tag in tags:
+                if tag.text not in tags_list:
+                    tags_list.append(tag.text)
+
+                else:
+                    pass
+
+            try:
+                next_page_url = soup.select('ul.pager')[0].select('li.next a')[0].get('href')
+            except:
+                has_next = False
+
+    write_to_json_file(tags_list, "all_tags")
+    write_to_txt_file(tags_list, "all_tags")
+    write_tags_to_xls(tags_list)
+    write_tags_to_csv(tags_list)
 
 
 def find_author(json_object, *search_queries):
@@ -142,8 +166,6 @@ def find_author(json_object, *search_queries):
       found_authors_list.append(found_author)
 
    return found_authors_list
-
-
 
 # ---- For full info ----------
 
@@ -205,7 +227,6 @@ def write_to_xls_full_info(result):
         worksheet.write(row, col, "")
         row += 1
 
-
 # ---- End for full info ---------
 
 # ----- For all authors ----------
@@ -258,6 +279,28 @@ def write_to_xls_all_authors(result):
 
 # ------- End for all authors -------
 
+# ------- For all tags -------------
+
+def write_tags_to_csv(result):
+    csv_file = open('reports/all_tags.csv', 'a')
+    csv_writer = csv.writer(csv_file, quoting=csv.QUOTE_ALL)
+
+    for i in result:
+        csv_writer.writerow([i])
+
+
+def write_tags_to_xls(result):
+    workbook = xlsxwriter.Workbook('reports/all_tags.xls')
+    worksheet = workbook.add_worksheet()
+
+    row = 0
+    col = 0
+
+    for i in result:
+        worksheet.write(row, col, i)
+        row += 1
+
+# ------- End for all tags ---------
 
 def write_to_json_file(result, file_name):
     with open('reports/%s.json' %file_name, 'a') as fp:
@@ -269,10 +312,9 @@ def write_to_txt_file(result, file_name):
 
 
 
-
-
 #find_full_info()
-find_all_authors()
+#find_all_authors()
+find_all_tags()
 
 with open('reports/test_results.json') as data_file:
     data = json.load(data_file)
