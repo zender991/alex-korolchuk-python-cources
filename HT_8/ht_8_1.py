@@ -7,7 +7,7 @@ import xlsxwriter
 
 
 try:
-    directory = ("/python-cources/HT_8/reports")  # set path to reports directory
+    directory = ("/python-cources/HT_8/reports/1")  # set path to reports directory
     if not os.path.exists(directory):
         os.makedirs(directory)  # create directory if it doesn't exist
 except Exception as e:
@@ -149,28 +149,40 @@ def find_all_tags():
     write_tags_to_csv(tags_list)
 
 
-def find_author(json_object, *search_queries):
+def find_author(*search_queries):
    found_authors_list = []
    for query in search_queries:
-      for i in json_object:
-         current_author = i['author']['author_id']
-         if current_author == query:
-            found_author = {
-               "author_name": i['author']['author-title'],
-               "author_url": i['author']['url'],
-               "author_born_date": i['author']['born_date'],
-               "author_born_place": i['author']['born_place'],
-               "author_description": i['author']['author_description']
-            }
+      for i in read_from_json_file():
+          for item in i:
+              current_author = item['author']['author_id']
+              if current_author == query:
+                  found_author = {
+                      "author_name": item['author']['author-title'],
+                      "author_url": item['author']['url'],
+                      "author_born_date": item['author']['born_date'],
+                      "author_born_place": item['author']['born_place'],
+                      "author_description": item['author']['author_description']
+                  }
 
-      found_authors_list.append(found_author)
+
+          found_authors_list.append(found_author)
+          break
 
    return found_authors_list
+
+
+def read_from_json_file():
+    data = []
+    with open('reports/full_results.json') as f:
+        for line in f:
+            data.append(json.loads(line))
+
+    return data
 
 # ---- For full info ----------
 
 def write_to_csv_full_info(result):
-    csv_file = open('reports/full_results.csv', 'a')
+    csv_file = open('reports/1/full_results.csv', 'a')
     csv_writer = csv.writer(csv_file, quoting=csv.QUOTE_ALL)
 
     for i in result:
@@ -196,7 +208,7 @@ def write_to_csv_full_info(result):
 
 
 def write_to_xls_full_info(result):
-    workbook = xlsxwriter.Workbook('reports/full_results.xls')
+    workbook = xlsxwriter.Workbook('reports/1/full_results.xls')
     worksheet = workbook.add_worksheet()
 
     row = 0
@@ -232,7 +244,7 @@ def write_to_xls_full_info(result):
 # ----- For all authors ----------
 
 def write_to_csv_all_authors(result):
-    csv_file = open('reports/authors_details.csv', 'a')
+    csv_file = open('reports/1/authors_details.csv', 'a')
     csv_writer = csv.writer(csv_file, quoting=csv.QUOTE_ALL)
 
     for i in result:
@@ -251,7 +263,7 @@ def write_to_csv_all_authors(result):
 
 
 def write_to_xls_all_authors(result):
-    workbook = xlsxwriter.Workbook('reports/authors_details.xls')
+    workbook = xlsxwriter.Workbook('reports/1/authors_details.xls')
     worksheet = workbook.add_worksheet()
 
     row = 0
@@ -282,7 +294,7 @@ def write_to_xls_all_authors(result):
 # ------- For all tags -------------
 
 def write_tags_to_csv(result):
-    csv_file = open('reports/all_tags.csv', 'a')
+    csv_file = open('reports/1/all_tags.csv', 'a')
     csv_writer = csv.writer(csv_file, quoting=csv.QUOTE_ALL)
 
     for i in result:
@@ -290,7 +302,7 @@ def write_tags_to_csv(result):
 
 
 def write_tags_to_xls(result):
-    workbook = xlsxwriter.Workbook('reports/all_tags.xls')
+    workbook = xlsxwriter.Workbook('reports/1/all_tags.xls')
     worksheet = workbook.add_worksheet()
 
     row = 0
@@ -303,20 +315,19 @@ def write_tags_to_xls(result):
 # ------- End for all tags ---------
 
 def write_to_json_file(result, file_name):
-    with open('reports/%s.json' %file_name, 'a') as fp:
+    with open('reports/1/%s.json' %file_name, 'a') as fp:
         json.dump(result, fp)
+        fp.write('\n')
 
 def write_to_txt_file(result, file_name):
-    with open('reports/%s.txt' % file_name, 'a') as fp:
+    with open('reports/1/%s.txt' % file_name, 'a') as fp:
         fp.write(str(result))
+        fp.write('\n')
 
 
 
-#find_full_info()
-#find_all_authors()
-find_all_tags()
+# find_full_info()
+# find_all_authors()
+# find_all_tags()
 
-with open('reports/test_results.json') as data_file:
-    data = json.load(data_file)
-
-#print(find_author(data, "j-k-rowling", "albert-einstein"))
+print(find_author( "j-k-rowling", "albert-einstein"))
