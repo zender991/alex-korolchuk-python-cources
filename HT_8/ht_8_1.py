@@ -7,9 +7,9 @@ import xlsxwriter
 
 
 try:
-    directory = ("/python-cources/HT_8/reports/1")  # set path to reports directory
+    directory = ("/python-cources/HT_8/reports/1")              # set path to reports directory
     if not os.path.exists(directory):
-        os.makedirs(directory)  # create directory if it doesn't exist
+        os.makedirs(directory)                                  # create directory if it doesn't exist
 except Exception as e:
     print(e)
 
@@ -17,50 +17,50 @@ except Exception as e:
 def find_full_info():
 
     next_page_url = ''
-    has_next = True     # value by deafult for loop start
-    while has_next:     # check flag
-        url = "http://quotes.toscrape.com" + next_page_url      # add to initial url part for the next page
-        page = requests.get(url)                                # get data from url
-        soup = BeautifulSoup(page.content, 'html5lib')          # transfer data to bs
+    has_next = True                                              # value by deafult for loop start
+    while has_next:                                              # check flag
+        url = "http://quotes.toscrape.com" + next_page_url       # add to initial url part for the next page
+        page = requests.get(url)                                 # get data from url
+        soup = BeautifulSoup(page.content, 'html5lib')           # transfer data to bs
         result = []
 
         for a in soup.find_all("div", {"itemtype": "http://schema.org/CreativeWork"}):  # find all blocks with info
-            quote = a.contents[1].text                          # store quote text
+            quote = a.contents[1].text                                                  # store quote text
 
             author_name = a.contents[3].find("small", {"itemprop":"author"}).text   # store author name
-            author_url = a.contents[3].find("a").get("href")            # get href value from a tag
-            author_id = author_url.split("/")[-1].lower()               # create id for author
-            author_full_url = url + author_url                          # create full url for author page
+            author_url = a.contents[3].find("a").get("href")                        # get href value from a tag
+            author_id = author_url.split("/")[-1].lower()                           # create id for author
+            author_full_url = url + author_url                                      # create full url for author page
 
-            author_details = requests.get(author_full_url)              # get info for external page
-            author_soup = BeautifulSoup(author_details.content, 'html5lib')     # transfer data to bs
+            author_details = requests.get(author_full_url)                           # get info for external page
+            author_soup = BeautifulSoup(author_details.content, 'html5lib')          # transfer data to bs
 
-            for item in author_soup.find_all("div", {"class": "author-details"}):   # find all blovks with info
+            for item in author_soup.find_all("div", {"class": "author-details"}):    # find all blovks with info
                 author_born_date = item.contents[3].find("span", {"class": "author-born-date"}).text    # store data
                 author_location = item.contents[3].find("span", {"class": "author-born-location"}).text
                 author_description = item.find("div", {"class": "author-description"}).text
 
-            dict = {"text": quote[1:-1]}    # write text without quotemarks into dictionary
-            dict["author"] = {              # write author details into dictionary
+            dict = {"text": quote[1:-1]}                                # write text without quotemarks into dictionary
+            dict["author"] = {                                          # write author details into dictionary
                 "url": author_full_url,
                 "author-title": author_name,
                 "born_date": author_born_date,
-                "born_place": author_location[3:],  # skip first 3 empty chars
-                "author_description": author_description[:100].lstrip(),  # write first 100 chars
+                "born_place": author_location[3:],                          # skip first 3 empty chars
+                "author_description": author_description[:100].lstrip(),    # write first 100 chars
                 "author_id": author_id
             }
 
             tags_list = []
-            for tag in a.contents[5].find_all("a", {"class": "tag"}):   # find all blocks with tag info
-                tags_list.append({                                      # write tag info into a dictionary
+            for tag in a.contents[5].find_all("a", {"class": "tag"}):       # find all blocks with tag info
+                tags_list.append({                                          # write tag info into a dictionary
                     "tag_name": tag.text,
                     "tag_url": "http://quotes.toscrape.com" + tag.get("href")
                 })
 
             dict["tags"] = tags_list
 
-            result.append(dict)                         # collect all info and add to list
-        write_to_csv_full_info(result)                  # write to 4 files after parse each page
+            result.append(dict)                                             # collect all info and add to list
+        write_to_csv_full_info(result)                                      # write to 4 files after parse each page
         write_to_json_file(result, "full_results")
         write_to_txt_file(result, "full_results")
         write_to_xls_full_info(result)
@@ -68,14 +68,14 @@ def find_full_info():
         try:
             next_page_url = soup.select('ul.pager')[0].select('li.next a')[0].get('href')   # find next page url
         except:
-            has_next = False                        # end loop if hasn't next page url
+            has_next = False                                                # end loop if hasn't next page url
 
 
 def find_all_authors():
     next_page_url = ''
-    has_next = True         # value by deafult for loop start
+    has_next = True                                             # value by deafult for loop start
     authors_list = []
-    while has_next:         # check flag
+    while has_next:                                             # check flag
         url = "http://quotes.toscrape.com" + next_page_url      # add to initial url part for the next page
         page = requests.get(url)                                # get data from url
         soup = BeautifulSoup(page.content, 'html5lib')          # transfer data to bs
@@ -84,11 +84,11 @@ def find_all_authors():
         for i in soup.find_all("div", {"itemtype": "http://schema.org/CreativeWork"}):  # find all blocks with info
             result = []
             author_name = i.contents[3].find("small", {"itemprop": "author"}).text      # find author block
-            if author_name not in authors_list:                     # check if author already in a list
-                author_url = i.contents[3].find("a").get("href")    # if no, store info about this author
+            if author_name not in authors_list:                                    # check if author already in a list
+                author_url = i.contents[3].find("a").get("href")                   # if no, store info about this author
                 author_full_url = url + author_url
 
-                author_details = requests.get(author_full_url)      # get data from external page
+                author_details = requests.get(author_full_url)                      # get data from external page
                 author_soup = BeautifulSoup(author_details.content, 'html5lib')     # tranfer data to bs
 
                 for item in author_soup.find_all("div", {"class": "author-details"}):   # store author info
@@ -104,24 +104,24 @@ def find_all_authors():
                     "born_place": author_location[3:],
                     "author_description": author_description[:100].lstrip()
                 }
-                authors_list.append(author_name)    # add author to unique authors list
-                result.append(dict)                 # add dictionary to a result list
-                write_to_json_file(result, "authors_details")   # write to 4 files after parse each page
+                authors_list.append(author_name)                        # add author to unique authors list
+                result.append(dict)                                     # add dictionary to a result list
+                write_to_json_file(result, "authors_details")           # write to 4 files after parse each page
                 write_to_txt_file(result, "authors_details")
                 write_to_csv_all_authors(result)
                 write_to_xls_all_authors(result)
             else:
-                pass                                            # skip  iteration if author already in a list
+                pass                                                    # skip  iteration if author already in a list
 
         try:
             next_page_url = soup.select('ul.pager')[0].select('li.next a')[0].get('href')   # find next page url
         except:
-            has_next = False                # finish loop if page hasn't next page url
+            has_next = False                                            # finish loop if page hasn't next page url
 
 
 def find_all_tags():
     next_page_url = ''
-    has_next = True                          # value by deafult for loop start
+    has_next = True                                                     # value by deafult for loop start
     tags_list = []
 
     while has_next:                          # check flag
