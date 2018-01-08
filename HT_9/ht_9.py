@@ -138,4 +138,68 @@ html_file = ('''<!DOCTYPE html>
 </body>
 </html>''')
 
-Stories.create_html_file(ts, html_file)
+
+
+html_file2 = '''
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Hometask - 9</title>
+    <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+
+</head>
+<body>
+<div class="panel-group" id="collapse-group" style="
+    padding: 10px;">
+ <div class="panel panel-default">
+ <div class="panel-heading">
+ <h4 class="panel-title">
+ <a data-toggle="collapse" data-parent="#collapse-group" href="#el1">Ask Stories</a>
+ </h4>
+ </div>
+ <div id="el1" class="panel-collapse collapse in">
+ <div class="panel-body">''' + result_list[0] + '''</div>
+ </div>
+ </div>
+ <div class="panel panel-default">
+ <div class="panel-heading">
+ <h4 class="panel-title">
+ <a data-toggle="collapse" data-parent="#collapse-group" href="#el2">Show Stories</a>
+ </h4>
+ </div>
+ <div id="el2" class="panel-collapse collapse">
+ <div class="panel-body">''' + result_list[1] + '''</div>
+ </div>
+ </div>
+ <div class="panel panel-default">
+ <div class="panel-heading">
+ <h4 class="panel-title">
+ <a data-toggle="collapse" data-parent="#collapse-group" href="#el3">New Stories</a>
+ </h4>
+ </div>
+ <div id="el3" class="panel-collapse collapse">
+ <div class="panel-body">''' + result_list[2] + '''</div>
+ </div>
+ </div>
+
+ <div class="panel panel-default">
+ <div class="panel-heading">
+ <h4 class="panel-title">
+ <a data-toggle="collapse" data-parent="#collapse-group" href="#el4">Job Stories</a>
+ </h4>
+ </div>
+ <div id="el4" class="panel-collapse collapse">
+ <div class="panel-body">''' + result_list[3] + '''</div>
+ </div>
+ </div>
+
+
+</div>
+</body>
+'''
+
+
+Stories.create_html_file(ts, html_file2)
