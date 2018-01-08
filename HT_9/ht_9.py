@@ -1,17 +1,18 @@
 import requests
 import time
 import os
+from config import id_data_file_path, api_category_url, api_items_url
 
 
 class Stories(object):
-    category_list = ['askstories', 'showstories', 'newstories', 'jobstories']
-    id_list = []
+    from config import category_list            # import here because object Stories needs attribute 'category_list'
+    id_list = []                                # create empty list for static method
 
     @staticmethod
-    def get_id_from_file():
+    def get_id_from_file():                     # read all unique id from file
 
-        if not os.path.exists("/python-cources/HT_9/data.txt"):
-            os.mknod("/python-cources/HT_9/data.txt")
+        if not os.path.exists(id_data_file_path):
+            os.mknod(id_data_file_path)
 
         txt_file = open('data.txt', 'r')
         for i in txt_file:
@@ -32,7 +33,7 @@ class Stories(object):
             fp.write(str(data))  # write object to a file
 
     def get_story_ids(self, category):
-        category_url = ("https://hacker-news.firebaseio.com/v0/%s.json?print=pretty" %category)
+        category_url = (api_category_url %category)
         response = requests.get(category_url, timeout=5)  # send request to api. get all categories IDs
         data = response.json()
         return data
@@ -50,7 +51,7 @@ class Stories(object):
 
         for i in current_id_list[:3]:                   # select each item in category. [:10] - limit for requests
             try:
-                url_for_items = ("https://hacker-news.firebaseio.com/v0/item/%i.json?print=pretty" % i)  # send request to api. get detailed info about current item
+                url_for_items = (api_items_url % i)  # send request to api. get detailed info about current item
                 current_item = requests.get(url_for_items, timeout=5)
                 current_item_json = {                                   # create json for current item
                     "item": current_item.json()
