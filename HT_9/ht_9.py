@@ -9,28 +9,28 @@ class Stories(object):
     id_list = []                                # create empty list for static method
 
     @staticmethod
-    def get_id_from_file():                     # read all unique id from file
+    def get_id_from_file():                          # read all unique id from file
 
-        if not os.path.exists(id_data_file_path):
+        if not os.path.exists(id_data_file_path):    # create file when it doesn't exist
             os.mknod(id_data_file_path)
 
         txt_file = open('data.txt', 'r')
         for i in txt_file:
-            Stories.id_list.append(i)
+            Stories.id_list.append(i)               # write unique ids to a list
         txt_file.close()
 
         return Stories.id_list
 
     @staticmethod
-    def write_id_to_file(i):
+    def write_id_to_file(i):                        # write unique ids to a file
         with open("data.txt", "a") as file:
             file.write(str(i) + '\n')
         file.close()
 
     @staticmethod
-    def create_html_file(title, data):
-        with open('%sresult.html' % title, 'w') as fp:  # add ability to write to the file end
-            fp.write(str(data))  # write object to a file
+    def create_html_file(title, data):              # create html file with timestamp in a title
+        with open('%sresult.html' % title, 'w') as fp:
+            fp.write(str(data))                     # add generated html into created file
 
     def get_story_ids(self, category):
         category_url = (api_category_url %category)
@@ -42,16 +42,16 @@ class Stories(object):
         all_items_list = []
         current_id_list = []
 
-        unique_id_list = Stories.get_id_from_file()
+        unique_id_list = Stories.get_id_from_file()         # get unique ids from a file
 
         for i in id_list:
-            if i not in unique_id_list:
-                current_id_list.append(i)
-                Stories.write_id_to_file(i)
+            if i not in unique_id_list:                     # compare ids after request with unique ids
+                current_id_list.append(i)                   # add new unique id to list for further actions
+                Stories.write_id_to_file(i)                 # write new unique id to a file
 
-        for i in current_id_list[:3]:                   # select each item in category. [:10] - limit for requests
+        for i in current_id_list[:10]:                      # select each item in category.[:10] - limit for requests
             try:
-                url_for_items = (api_items_url % i)  # send request to api. get detailed info about current item
+                url_for_items = (api_items_url % i)         # send request to api. get info about current item
                 current_item = requests.get(url_for_items, timeout=5)
                 current_item_json = {                                   # create json for current item
                     "item": current_item.json()
@@ -63,7 +63,7 @@ class Stories(object):
 
         return all_items_list
 
-    def create_data_for_html(self, data_list):
+    def create_data_for_html(self, data_list):              # create list with data for html file
         title_list = []
         for i in data_list:
             a = "<li class='list-group-item'>" + i['item']['title'] + "</li>"
@@ -71,21 +71,22 @@ class Stories(object):
 
         title_string = ''
         for i in title_list:
-            title_string += str(i)
+            title_string += str(i)                          # add all elements from list to a string for html
 
         return title_string
 
 
-instance = Stories()
-result_list = []
-ts = time.time()
-for i in Stories.category_list:
-    stories_id = instance.get_story_ids(i)
-    stories_titles = instance.get_title_stories(stories_id)
-    stories_string = instance.create_data_for_html(stories_titles)
-    result_list.append(stories_string)
+instance = Stories()                                        # create instance
+result_list = []                                            # list for all string with category info
+ts = time.time()                                            # timestamp for html file title
+for i in Stories.category_list:                             # select each category
+    stories_id = instance.get_story_ids(i)                  # get ids for items
+    stories_titles = instance.get_title_stories(stories_id)         # get stiries titles
+    stories_string = instance.create_data_for_html(stories_titles)  # generate data for html
+    result_list.append(stories_string)                              # add to a result list for html
 
 
+# create structure for html file
 html_file = '''
 <!DOCTYPE html>
 <html lang="en">
@@ -181,4 +182,4 @@ html_file = '''
 </body>
 '''
 
-Stories.create_html_file(ts, html_file)
+Stories.create_html_file(ts, html_file)     # write generated html to a file
