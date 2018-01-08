@@ -85,62 +85,7 @@ for i in Stories.category_list:
     result_list.append(stories_string)
 
 
-html_file = ('''<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-    <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
-    <script src="http://code.jquery.com/jquery-latest.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-
-</head>
-<body>
-
-
-<div class="tabbable" style="padding:10px;"> <!-- Only required for left/right tabs -->
-
-  <ul class="nav nav-tabs">
-    <li class="active"><a href="#tab1" data-toggle="tab">Ask Stories</a></li>
-    <li><a href="#tab2" data-toggle="tab">Show Stories</a></li>
-    <li><a href="#tab3" data-toggle="tab">New Stories</a></li>
-    <li><a href="#tab4" data-toggle="tab">Job Stories</a></li>
-  </ul>
-  <div class="tab-content">
-    <div class="tab-pane active" id="tab1">
-    <ul class="list-group">
-      ''' + result_list[0] +
-    '''
-    </ul>
-    </div>
-    <div class="tab-pane active" id="tab2">
-    <ul class="list-group">
-      ''' + result_list[1] +
-    '''
-    </ul>
-    </div>
-    <div class="tab-pane active" id="tab3">
-    <ul class="list-group">
-      ''' + result_list[2] +
-    '''
-    </ul>
-    </div>
-        <div class="tab-pane active" id="tab4">
-    <ul class="list-group">
-      ''' + result_list[3] +
-    '''
-    </ul>
-    </div>
-  </div>
-</div>
-
-
-</body>
-</html>''')
-
-
-
-html_file2 = '''
+html_file = '''
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -150,8 +95,40 @@ html_file2 = '''
     <script src="http://code.jquery.com/jquery-latest.js"></script>
     <script src="js/bootstrap.min.js"></script>
 
+
+
+    <style>
+    body {
+        background-color: #1D1D1D;
+        padding: 30px;
+        margin: 0px;
+    }
+    #snowflakeContainer {
+        position: absolute;
+        left: 0px;
+        top: 0px;
+    }
+    .snowflake {
+        padding-left: 15px;
+        font-family: Cambria, Georgia, serif;
+        font-size: 14px;
+        line-height: 24px;
+        position: fixed;
+        color: #FFFFFF;
+        user-select: none;
+        z-index: 1000;
+    }
+    .snowflake:hover {
+        cursor: default;
+    }
+    </style>
+
 </head>
 <body>
+<div id="snowflakeContainer">
+	<p class="snowflake">*</p>
+</div>
+<h1 style="text-align: center; color: gray;">GeekHub Python Hometask 9</h1>
 <div class="panel-group" id="collapse-group" style="
     padding: 10px;">
  <div class="panel panel-default">
@@ -198,8 +175,9 @@ html_file2 = '''
 
 
 </div>
+<script src="js/fallingsnow_v6.js"></script>
+<script src="js/prefixfree.min.js"></script>
 </body>
 '''
 
-
-Stories.create_html_file(ts, html_file2)
+Stories.create_html_file(ts, html_file)
