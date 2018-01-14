@@ -2,8 +2,9 @@ import requests
 import psycopg2
 import time
 from config import *
+from html_structure import generate_html_code
 
-conn = psycopg2.connect(connect_to_db_credentials)  # Connect to an existing database
+conn = psycopg2.connect(connect_to_db_credentials)                  # Connect to an existing database
 cursor = conn.cursor()                                              # Open a cursor to perform database operations
 
 
@@ -121,7 +122,6 @@ class Stories(object):
 
 
 
-
 instance = Stories()
 # instance.get_stories('askstories', insert_askstories_query, update_askstories_query)
 # instance.get_stories('newstories', insert_newstories_query, update_newstories_query)
@@ -136,99 +136,7 @@ result_list = []
 result_list.extend([newstories, askstories, jobstories, showstories])
 
 # create structure for html file
-html_file = '''
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Hometask - 9</title>
-    <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
-    <script src="http://code.jquery.com/jquery-latest.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-
-    <style>
-    body {
-        background-color: #1D1D1D;
-        padding: 30px;
-        margin: 0px;
-    }
-    #snowflakeContainer {
-        position: absolute;
-        left: 0px;
-        top: 0px;
-    }
-    .snowflake {
-        padding-left: 15px;
-        font-family: Cambria, Georgia, serif;
-        font-size: 14px;
-        line-height: 24px;
-        position: fixed;
-        color: #FFFFFF;
-        user-select: none;
-        z-index: 1000;
-    }
-    .snowflake:hover {
-        cursor: default;
-    }
-    </style>
-
-</head>
-<body>
-<div id="snowflakeContainer">
-	<p class="snowflake">*</p>
-</div>
-<h1 style="text-align: center; color: gray;">GeekHub Python Hometask 9</h1>
-<div class="panel-group" id="collapse-group" style="
-    padding: 10px;">
- <div class="panel panel-default">
- <div class="panel-heading">
- <h4 class="panel-title">
- <a data-toggle="collapse" data-parent="#collapse-group" href="#el1">Ask Stories</a>
- </h4>
- </div>
- <div id="el1" class="panel-collapse collapse in">
- <div class="panel-body">''' + result_list[0] + '''</div>
- </div>
- </div>
-
- <div class="panel panel-default">
- <div class="panel-heading">
- <h4 class="panel-title">
- <a data-toggle="collapse" data-parent="#collapse-group" href="#el2">Show Stories</a>
- </h4>
- </div>
- <div id="el2" class="panel-collapse collapse">
- <div class="panel-body">''' + result_list[1] + '''</div>
- </div>
- </div>
-
- <div class="panel panel-default">
- <div class="panel-heading">
- <h4 class="panel-title">
- <a data-toggle="collapse" data-parent="#collapse-group" href="#el3">New Stories</a>
- </h4>
- </div>
- <div id="el3" class="panel-collapse collapse">
- <div class="panel-body">''' + result_list[2] + '''</div>
- </div>
- </div>
-
- <div class="panel panel-default">
- <div class="panel-heading">
- <h4 class="panel-title">
- <a data-toggle="collapse" data-parent="#collapse-group" href="#el4">Job Stories</a>
- </h4>
- </div>
- <div id="el4" class="panel-collapse collapse">
- <div class="panel-body">''' + result_list[3] + '''</div>
- </div>
- </div>
-
-</div>
-<script src="js/fallingsnow_v6.js"></script>
-<script src="js/prefixfree.min.js"></script>
-</body>
-'''
+html_file = generate_html_code(result_list[0], result_list[1], result_list[2], result_list[3])
 
 Stories.create_html_file(ts, html_file)     # write generated html to a file
 
