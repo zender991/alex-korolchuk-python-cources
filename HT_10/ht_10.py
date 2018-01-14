@@ -1,11 +1,7 @@
 import requests
 import psycopg2
 import time
-import os
-import pprint
-
 from config import *
-
 
 conn = psycopg2.connect("dbname='postgres' user='postgres' host='localhost' password='newpassword'")
 cursor = conn.cursor()
@@ -104,11 +100,13 @@ class Stories(object):
     def create_html_file(title, data):              # create html file with timestamp in a title
         with open('%sresult.html' % title, 'w') as fp:
             fp.write(str(data))                     # add generated html into created file
+        fp.close()
 
-    def get_data_from_db_for_html(self):
+
+    def get_data_from_db_for_html(self, category):
         title_list = []
 
-        cursor.execute("SELECT title FROM newstories")
+        cursor.execute("SELECT title FROM %s" % category)
         titles_list_from_db = [item[0] for item in cursor.fetchall()]
 
         for i in titles_list_from_db:
@@ -125,15 +123,17 @@ class Stories(object):
 
 
 instance = Stories()
-#instance.get_stories('askstories', insert_askstories_query, update_askstories_query)
+# instance.get_stories('askstories', insert_askstories_query, update_askstories_query)
 # instance.get_stories('newstories', insert_newstories_query, update_newstories_query)
 # instance.get_stories('jobstories', insert_jobstories_query, update_jobstories_query)
-#instance.get_stories('showstories', insert_showstories_query, update_showstories_query)
+# instance.get_stories('showstories', insert_showstories_query, update_showstories_query)
 ts = time.time()
+newstories = instance.get_data_from_db_for_html('newstories')
+askstories = instance.get_data_from_db_for_html('askstories')
+jobstories = instance.get_data_from_db_for_html('jobstories')
+showstories = instance.get_data_from_db_for_html('showstories')
 result_list = []
-a = instance.get_data_from_db_for_html()
-result_list.append(a)
-
+result_list.extend([newstories, askstories, jobstories, showstories])
 
 # create structure for html file
 html_file = '''
@@ -145,8 +145,6 @@ html_file = '''
     <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
     <script src="http://code.jquery.com/jquery-latest.js"></script>
     <script src="js/bootstrap.min.js"></script>
-
-
 
     <style>
     body {
@@ -232,7 +230,8 @@ html_file = '''
 </body>
 '''
 
-
-
 Stories.create_html_file(ts, html_file)     # write generated html to a file
-Створити Backup(резервне копіювання) створеної БД.
+
+cursor.close()
+conn.close()
+
