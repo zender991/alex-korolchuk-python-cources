@@ -29,3 +29,9 @@ update_jobstories_query = "UPDATE jobstories SET by = %s, descendants = %s, stor
 update_showstories_query = "UPDATE showstories SET by = %s, descendants = %s, story_id = %s, kids = %s, score = %s, " \
                           "text = %s, time = %s, title = %s, type = %s, url = %s " \
                           "WHERE story_id = %s"
+
+# ----------------------------------------
+
+get_stories_id_query = "SELECT story_id FROM %s"
+get_titles_for_html_query = "SELECT title FROM %s"
+
