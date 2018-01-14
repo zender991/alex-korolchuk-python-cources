@@ -3,7 +3,7 @@ import psycopg2
 import time
 from config import *
 
-conn = psycopg2.connect("dbname='postgres' user='postgres' host='localhost' password='newpassword'")  # Connect to an existing database
+conn = psycopg2.connect(connect_to_db_credentials)  # Connect to an existing database
 cursor = conn.cursor()                                              # Open a cursor to perform database operations
 
 
@@ -11,14 +11,14 @@ class Stories(object):
 
     @staticmethod
     def get_story_ids(category):                                    # get stories ids in selected category
-        category_url = ("https://hacker-news.firebaseio.com/v0/%s.json?print=pretty" % category)
+        category_url = (category_url_for_request % category)
         response = requests.get(category_url, timeout=5)            # send request to api. get all categories IDs
         data = response.json()
         return data
 
     @staticmethod
     def get_story_details(i):                                       # get all fields from particular story
-        url_for_items = ("https://hacker-news.firebaseio.com/v0/item/%i.json?print=pretty" % i)
+        url_for_items = (item_url_for_request % i)
         current_item = requests.get(url_for_items, timeout=5)
         current_story = current_item.json()
         return current_story

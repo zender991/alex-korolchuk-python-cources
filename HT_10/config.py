@@ -34,4 +34,6 @@ update_showstories_query = "UPDATE showstories SET by = %s, descendants = %s, st
 
 get_stories_id_query = "SELECT story_id FROM %s"
 get_titles_for_html_query = "SELECT title FROM %s"
-
+category_url_for_request = "https://hacker-news.firebaseio.com/v0/%s.json?print=pretty"
+item_url_for_request = "https://hacker-news.firebaseio.com/v0/item/%i.json?print=pretty"
+connect_to_db_credentials = "dbname='postgres' user='postgres' host='localhost' password='newpassword'"
