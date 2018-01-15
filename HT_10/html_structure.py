@@ -1,11 +1,14 @@
+import re
+
 # Generate html code with titles from DB
-def generate_html_code(category_1, category_2, category_3, category_4):
+def generate_html_code(*args):
+
     html_file = '''
     <!DOCTYPE html>
     <html lang="en">
     <head>
         <meta charset="UTF-8">
-        <title>Hometask - 91</title>
+        <title>Hometask - 9</title>
         <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
         <script src="http://code.jquery.com/jquery-latest.js"></script>
         <script src="js/bootstrap.min.js"></script>
@@ -51,7 +54,7 @@ def generate_html_code(category_1, category_2, category_3, category_4):
      </h4>
      </div>
      <div id="el1" class="panel-collapse collapse in">
-     <div class="panel-body">''' + category_1 + '''</div>
+     <div class="panel-body"> {{category_1}} </div>
      </div>
      </div>
 
@@ -62,7 +65,7 @@ def generate_html_code(category_1, category_2, category_3, category_4):
      </h4>
      </div>
      <div id="el2" class="panel-collapse collapse">
-     <div class="panel-body">''' + category_2 + '''</div>
+     <div class="panel-body"> {{category_2}} </div>
      </div>
      </div>
 
@@ -73,7 +76,7 @@ def generate_html_code(category_1, category_2, category_3, category_4):
      </h4>
      </div>
      <div id="el3" class="panel-collapse collapse">
-     <div class="panel-body">''' + category_3 + '''</div>
+     <div class="panel-body"> {{category_3}} </div>
      </div>
      </div>
 
@@ -84,7 +87,7 @@ def generate_html_code(category_1, category_2, category_3, category_4):
      </h4>
      </div>
      <div id="el4" class="panel-collapse collapse">
-     <div class="panel-body">''' + category_4 + '''</div>
+     <div class="panel-body"> {{category_4}} </div>
      </div>
      </div>
 
@@ -93,5 +96,12 @@ def generate_html_code(category_1, category_2, category_3, category_4):
     <script src="js/prefixfree.min.js"></script>
     </body>
     '''
+
+    found_variables = re.findall(r"{{(.*?)}}", html_file)               # find all variables in html code
+
+    attr_counter = 0
+    for variable in found_variables:                                    # replace found variables to received *args
+        html_file = re.sub(r"{{%s}}" % variable, args[attr_counter], html_file)
+        attr_counter += 1
 
     return html_file
