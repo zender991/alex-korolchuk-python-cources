@@ -2,7 +2,7 @@ import requests
 import psycopg2
 import time
 from config import *
-from html_structure_1 import generate_html_code
+from html_structure import generate_html_code
 
 conn = psycopg2.connect(connect_to_db_credentials)                  # Connect to an existing database
 cursor = conn.cursor()                                              # Open a cursor to perform database operations
