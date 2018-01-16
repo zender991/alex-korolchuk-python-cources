@@ -2,7 +2,7 @@ import requests
 import psycopg2
 import time
 from config import *
-from html_structure import generate_html_code
+from html_structure import Parser
 
 conn = psycopg2.connect(connect_to_db_credentials)                  # Connect to an existing database
 cursor = conn.cursor()                                              # Open a cursor to perform database operations
@@ -136,7 +136,7 @@ result_list = []
 result_list.extend([newstories, askstories, jobstories, showstories])
 
 # create structure for html file
-html_file = generate_html_code(result_list[0], result_list[1], result_list[2], result_list[3])
+html_file = Parser.generate_html_code(result_list[0], result_list[1], result_list[2], result_list[3])
 
 Stories.create_html_file(ts, html_file)     # write generated html to a file
 
