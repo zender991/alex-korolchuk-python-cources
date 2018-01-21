@@ -1,7 +1,7 @@
 {% if titles_list %}
     <ul>
-    {% for title in titles_list %}
-        <li><a href="/polls/{{ askstories.id }}/">{{ title.title }}</a></li>
+    {% for story in titles_list %}
+        <li><a href="/askstories/{{ story.id }}/">{{ story.title }}</a></li>
     {% endfor %}
     </ul>
 
