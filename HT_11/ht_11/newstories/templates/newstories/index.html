@@ -1,0 +1,14 @@
+<h1>Newstories</h1>
+
+{% if titles_list %}
+    <ul>
+    {% for story in titles_list %}
+        <li><a href="/newstories/{{ story.id }}/">{{ story.title }}</a></li>
+    {% endfor %}
+    </ul>
+
+{% else %}
+    <p>No stories are available.</p>
+{% endif %}
+<br>
+<a href="/">Go to homepage</a>
