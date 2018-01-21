@@ -6,7 +6,7 @@ class Newstories(models.Model):
     story_id = models.CharField(max_length=200)
     kids = models.CharField(max_length=500)
     score = models.IntegerField(default=0)
-    text = models.CharField(max_length=500)
+    text = models.TextField(default='default')
     time = models.CharField(max_length=200)
     title = models.CharField(max_length=200)
     type = models.CharField(max_length=200)

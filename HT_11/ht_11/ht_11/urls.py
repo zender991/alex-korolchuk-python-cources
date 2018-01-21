@@ -23,5 +23,7 @@ urlpatterns = [
     path('newstories/', include('newstories.urls')),
     path('jobstories/', include('jobstories.urls')),
     path('showstories/', include('showstories.urls')),
+    path('get_data/', include('homepage.urls')),
+
     re_path('^$', include('homepage.urls')),
 ]
