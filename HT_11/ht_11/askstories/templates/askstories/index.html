@@ -1,0 +1,10 @@
+{% if titles_list %}
+    <ul>
+    {% for title in titles_list %}
+        <li><a href="/polls/{{ askstories.id }}/">{{ title.title }}</a></li>
+    {% endfor %}
+    </ul>
+
+{% else %}
+    <p>No stories are available.</p>
+{% endif %}
