@@ -1,7 +1,6 @@
 from django.shortcuts import render, get_object_or_404
 from askstories.models import Askstories
-from django.http import HttpResponse
-from django.http import Http404
+
 
 def index(request):
     titles_list = Askstories.objects.all().order_by('title')[:5]

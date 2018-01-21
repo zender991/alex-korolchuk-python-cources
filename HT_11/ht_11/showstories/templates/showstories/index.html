@@ -1,9 +1,9 @@
-<h1>Askstories</h1>
+<h1>Showstories</h1>
 
 {% if titles_list %}
     <ul>
     {% for story in titles_list %}
-        <li><a href="/askstories/{{ story.id }}/">{{ story.title }}</a></li>
+        <li><a href="/showstories/{{ story.id }}/">{{ story.title }}</a></li>
     {% endfor %}
     </ul>
 
