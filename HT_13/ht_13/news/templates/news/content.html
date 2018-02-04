@@ -1,22 +1,28 @@
-{% extends 'news/base.html' %}
-
-{% block title %}HT - 13{% endblock %}
-
-{% block content %}
-
 <div class="w3-main w3-light-grey" id="belowtopnav" style="margin-left: 220px; padding-top: 0px;">
   <div class="w3-row w3-white">
     <div class="w3-col l10 m12" id="main">
       <div id="mainLeaderboard" style="overflow:hidden;">
+        <!-- MainLeaderboard-->
         <div id="div-gpt-ad-1422003450156-2" data-google-query-id="CJjI29nTjNkCFQ-CGQodwrgJOQ">
           <script type="text/javascript">googletag.cmd.push(function() { googletag.display('div-gpt-ad-1422003450156-2'); });</script>
         <div id="google_ads_iframe_/16833175/MainLeaderboard_0__container__" style="border: 0pt none; display: inline-block; width: 728px; height: 90px;"><iframe frameborder="0" src="https://tpc.googlesyndication.com/safeframe/1-0-15/html/container.html" id="google_ads_iframe_/16833175/MainLeaderboard_0" title="3rd party ad content" name="" scrolling="no" marginwidth="0" marginheight="0" width="728" height="90" data-is-safeframe="true" style="border: 0px; vertical-align: bottom;"></iframe></div></div>
       </div>
-<h1 style="text-align: center">Welcome to Stories Website</h1>
+<h1>Welcome to Stories Website</h1>
 
-<div class="w3-padding w3-light-grey" style="text-align: center">
-    <p class="w3-large" style="margin-bottom:30px;">Click generate to get data from API</p>
-    <input type="button" class="w3-btn w3-orange w3-large w3-text-white" onclick="location.href='{% url 'news:get_data' %}';" value=" Generate "/>
+<div class="w3-padding w3-light-grey">
+    <p class="w3-large" style="margin-bottom:30px;">1. What does SQL stand for?</p>
+    <form role="form" name="quizform" action="quiztest.asp?qtest=SQL" method="post">
+    <input type="hidden" name="starttime" value="2/4/2018 11:13:50 AM">
+    <input type="hidden" name="answers" value="0000000000000000000000000" size="25">
+    <input type="hidden" name="qnumber" value="1" size="25">
+    <div class="radio"><label><input type="radio" name="quiz" id="2" value="2"> Structured Question Language</label></div><div class="radio"><label><input type="radio" name="quiz" id="1" value="1"> Structured Query Language</label></div><div class="radio"><label><input type="radio" name="quiz" id="3" value="3"> Strong Question Language</label></div>
+    <br>
+    <input type="submit" class="w3-btn w3-orange w3-large w3-text-white" value=" Next ">
+    </form>
 </div>
 
-{% endblock %}
+
+
+
+
+

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Title{% endblock %}</title>
+    {% block static %}
+        <link href="https://s3.us-east-2.amazonaws.com/python-test123/ht_13.css" rel="stylesheet" type="text/css" />
+        <link href="https://s3.us-east-2.amazonaws.com/python-test123/blocks_styles.css" rel="stylesheet" type="text/css" />
+        <link href="https://s3.us-east-2.amazonaws.com/python-test123/bootstrap.min.css" rel="stylesheet" media="screen">
+        <script src="https://s3.us-east-2.amazonaws.com/python-test123/bootstrap.min.js"></script>
+    {% endblock %}
+</head>
+<body>
+{% block header %}
+    {% include "news/header.html" %}
+{% endblock %}
+
+{% block menu %}
+    {% include "news/menu.html" %}
+{% endblock %}
+
+{% block content %}
+    {% include "news/content.html" %}
+{% endblock %}
+
+</body>
+</html>

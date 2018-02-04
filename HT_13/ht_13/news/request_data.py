@@ -70,6 +70,7 @@ class Stories(object):
         except:
             url = '-'
 
+
         return [author, descendants, id, kids, score, text, time, title, type, url]
 
     def get_stories(self, story_title, insert_query, update_query, category_id):           # get detailed info of each story using  story id
